@@ -43,6 +43,14 @@ type Props = $RemoveChildren<typeof View> & {|
   onPress?: () => mixed,
   style?: any,
   /**
+   *  Title uses font scaling
+   */
+  allowTitleFontScaling?: boolean,
+  /**
+   * Subtitle uses font scaling
+   */
+  allowSubtitleFontScaling?: boolean,
+  /**
    * @optional
    */
   theme: Theme,
@@ -64,6 +72,8 @@ class AppbarContent extends React.Component<Props> {
       titleStyle,
       theme,
       title,
+      allowTitleFontScaling,
+      allowSubtitleFontScaling,
       ...rest
     } = this.props;
     const { fonts } = theme;
@@ -87,6 +97,7 @@ class AppbarContent extends React.Component<Props> {
               titleStyle,
             ]}
             numberOfLines={1}
+            allowFontScaling={allowTitleFontScaling}
             accessibilityTraits="header"
             accessibilityRole="header"
           >
@@ -96,6 +107,7 @@ class AppbarContent extends React.Component<Props> {
             <Text
               style={[styles.subtitle, { color: subtitleColor }, subtitleStyle]}
               numberOfLines={1}
+              allowFontScaling={allowSubtitleFontScaling}
             >
               {subtitle}
             </Text>
