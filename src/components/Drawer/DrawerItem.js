@@ -14,7 +14,7 @@ type Props = {
   /**
    * The label text of the item.
    */
-  label: string,
+  label: React.Node,
   /**
    * Icon to display for the `DrawerItem`.
    */
@@ -69,7 +69,24 @@ class DrawerItem extends React.Component<Props> {
           .string();
     const fontFamily = theme.fonts.medium;
     const labelMargin = icon ? 32 : 0;
-
+    let labelElement = label;
+    if (typeof label === 'string') {
+      labelElement = (
+        <Text
+          numberOfLines={1}
+          style={[
+            styles.label,
+            {
+              color: contentColor,
+              fontFamily,
+              marginLeft: labelMargin,
+            },
+          ]}
+        >
+          {label}
+        </Text>
+      );
+    }
     return (
       <View
         {...rest}
@@ -93,19 +110,7 @@ class DrawerItem extends React.Component<Props> {
             {icon ? (
               <Icon source={icon} size={24} color={contentColor} />
             ) : null}
-            <Text
-              numberOfLines={1}
-              style={[
-                styles.label,
-                {
-                  color: contentColor,
-                  fontFamily,
-                  marginLeft: labelMargin,
-                },
-              ]}
-            >
-              {label}
-            </Text>
+            {labelElement}
           </View>
         </TouchableRipple>
       </View>

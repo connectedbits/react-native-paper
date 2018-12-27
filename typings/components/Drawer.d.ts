@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { ViewProps } from 'react-native';
-import { ThemeShape, IconSource } from '../types';
+import { IconSource, ThemeShape } from '../types';
 
 export interface ItemProps extends ViewProps {
-  label: string;
+  label: React.ReactNode;
   icon?: IconSource;
   active?: boolean;
   theme?: ThemeShape;
