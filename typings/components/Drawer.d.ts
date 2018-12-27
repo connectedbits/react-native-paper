@@ -3,7 +3,7 @@ import { ViewProps } from 'react-native';
 import { IconSource, ThemeShape } from '../types';
 
 export interface ItemProps extends ViewProps {
-  label: string;
+  label: React.ReactNode;
   icon?: IconSource;
   active?: boolean;
   numberOfLines?: number | null;
