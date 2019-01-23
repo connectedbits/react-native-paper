@@ -1,9 +1,11 @@
 import Colors from './Colors';
+import * as Avatar from './components/Avatar';
 import * as List from './components/List';
 import * as Drawer from './components/Drawer';
 
 export * from './types';
 export * from './components/Appbar';
+export * from './components/Badge';
 export * from './components/Banner';
 export * from './components/BottomNavigation';
 export * from './components/Typography';
@@ -29,4 +31,5 @@ export * from './components/TextInput';
 export * from './components/ToggleButton';
 export * from './components/TouchableRipple';
 export * from './components/Typography';
-export { Colors, List, Drawer };
+
+export { Avatar, Colors, List, Drawer };

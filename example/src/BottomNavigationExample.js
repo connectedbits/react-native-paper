@@ -11,6 +11,7 @@ type State = {
     title: string,
     icon: string,
     color: string,
+    badge?: boolean,
   }>,
 };
 
@@ -30,7 +31,7 @@ const PhotoGallery = ({ route }) => {
   );
 };
 
-export default class ButtomNavigationExample extends React.Component<
+export default class BottomNavigationExample extends React.Component<
   {},
   State
 > {
@@ -45,6 +46,7 @@ export default class ButtomNavigationExample extends React.Component<
         title: 'Library',
         icon: 'inbox',
         color: '#2962ff',
+        badge: true,
       },
       {
         key: 'favorites',
