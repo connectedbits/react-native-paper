@@ -68,9 +68,13 @@ type Props = {|
   visible: boolean,
   /**
    * Style for the group. You can use it to pass additional styles if you need.
-   * For example, you can set an additional margin if you have a tab bar at the bottom.
+   * For example, you can set an additional padding if you have a tab bar at the bottom.
    */
   style?: any,
+  /**
+   * Style for the FAB. It allows to pass the FAB button styles, such as backgroundColor.
+   */
+  fabStyle?: any,
   /**
    * @optional
    */
@@ -198,6 +202,7 @@ class FABGroup extends React.Component<Props, State> {
       accessibilityLabel,
       theme,
       style,
+      fabStyle,
       visible,
     } = this.props;
     const { colors } = theme;
@@ -312,7 +317,7 @@ class FABGroup extends React.Component<Props, State> {
           accessibilityTraits="button"
           accessibilityComponentType="button"
           accessibilityRole="button"
-          style={styles.fab}
+          style={[styles.fab, fabStyle]}
           visible={visible}
         />
       </View>

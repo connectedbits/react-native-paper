@@ -252,7 +252,7 @@ const FAR_FAR_AWAY = 9999;
 
 const Touchable = TouchableRipple.supported
   ? TouchableRipple
-  : ({ style, children, borderless, rippleColor, ...rest }) => (
+  : ({ style, children, borderless, centered, rippleColor, ...rest }) => (
       <TouchableWithoutFeedback {...rest}>
         <View style={style}>{children}</View>
       </TouchableWithoutFeedback>
@@ -749,6 +749,7 @@ class BottomNavigation<T: *> extends React.Component<Props<T>, State> {
                   <Touchable
                     key={route.key}
                     borderless
+                    centered
                     rippleColor={touchColor}
                     onPress={() => this._handleTabPress(index)}
                     testID={getTestID({ route })}
@@ -906,6 +907,7 @@ export default withTheme(BottomNavigation);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    overflow: 'hidden',
   },
   content: {
     flex: 1,
@@ -917,10 +919,12 @@ const styles = StyleSheet.create({
     elevation: 8,
   },
   barContent: {
+    alignItems: 'center',
     overflow: 'hidden',
   },
   items: {
     flexDirection: 'row',
+    width: '100%',
   },
   item: {
     flex: 1,
@@ -953,6 +957,11 @@ const styles = StyleSheet.create({
     fontSize: 12,
     textAlign: 'center',
     backgroundColor: 'transparent',
+    ...((Platform.OS === 'web'
+      ? {
+          whiteSpace: 'nowrap',
+        }
+      : null): any),
   },
   badgeContainer: {
     position: 'absolute',
