@@ -23,6 +23,8 @@ const MINIMIZED_LABEL_FONT_SIZE = 12;
 const LABEL_WIGGLE_X_OFFSET = 4;
 const FOCUS_ANIMATION_DURATION = 150;
 const BLUR_ANIMATION_DURATION = 180;
+const LABEL_PADDING_HORIZONTAL = 12;
+const RANDOM_VALUE_TO_CENTER_LABEL = 4; // Don't know why 4, but it works
 
 type RenderProps = {
   ref: any => void,
@@ -69,6 +71,10 @@ type Props = React.ElementConfig<typeof NativeTextInput> & {|
    * Callback that is called when the text input's text changes. Changed text is passed as an argument to the callback handler.
    */
   onChangeText?: Function,
+  /**
+   * Selection color of the input
+   */
+  selectionColor?: string,
   /**
    * Underline color of the input.
    */
@@ -379,6 +385,7 @@ class TextInput extends React.Component<Props, State> {
       disabled,
       label,
       error,
+      selectionColor,
       underlineColor,
       style,
       theme,
@@ -430,6 +437,12 @@ class TextInput extends React.Component<Props, State> {
       };
     }
 
+    const labelHalfWidth = this.state.labelLayout.width / 2;
+    const baseLabelTranslateX =
+      (I18nManager.isRTL ? 1 : -1) *
+      (1 - MINIMIZED_LABEL_FONT_SIZE / MAXIMIZED_LABEL_FONT_SIZE) *
+      labelHalfWidth;
+
     const labelStyle = {
       fontFamily,
       fontSize: MAXIMIZED_LABEL_FONT_SIZE,
@@ -472,9 +485,13 @@ class TextInput extends React.Component<Props, State> {
           translateX: this.state.labeled.interpolate({
             inputRange: [0, 1],
             outputRange: [
-              (I18nManager.isRTL ? 1 : -1) *
-                (1 - MINIMIZED_LABEL_FONT_SIZE / MAXIMIZED_LABEL_FONT_SIZE) *
-                (this.state.labelLayout.width / 2),
+              baseLabelTranslateX > 0
+                ? baseLabelTranslateX +
+                  labelHalfWidth / LABEL_PADDING_HORIZONTAL -
+                  RANDOM_VALUE_TO_CENTER_LABEL
+                : baseLabelTranslateX -
+                  labelHalfWidth / LABEL_PADDING_HORIZONTAL +
+                  RANDOM_VALUE_TO_CENTER_LABEL,
               0,
             ],
           }),
@@ -489,6 +506,7 @@ class TextInput extends React.Component<Props, State> {
           // This is so that the label can overlap the outline
           // Otherwise the border will cut off the label on Android
           <View
+            pointerEvents="none"
             style={[
               styles.outline,
               {
@@ -627,7 +645,10 @@ class TextInput extends React.Component<Props, State> {
           placeholder: label ? this.state.placeholder : this.props.placeholder,
           placeholderTextColor: placeholderColor,
           editable: !disabled,
-          selectionColor: activeColor,
+          selectionColor:
+            typeof selectionColor === 'undefined'
+              ? activeColor
+              : selectionColor,
           onFocus: this._handleFocus,
           onBlur: this._handleBlur,
           underlineColorAndroid: 'transparent',
@@ -660,7 +681,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 0,
     fontSize: 16,
-    paddingHorizontal: 12,
+    paddingHorizontal: LABEL_PADDING_HORIZONTAL,
   },
   placeholderFlat: {
     top: 19,
@@ -696,6 +717,7 @@ const styles = StyleSheet.create({
     margin: 0,
     minHeight: 58,
     textAlign: I18nManager.isRTL ? 'right' : 'left',
+    zIndex: 1,
   },
   inputOutlined: {
     paddingTop: 20,
