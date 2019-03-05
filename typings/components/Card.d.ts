@@ -28,10 +28,12 @@ export interface CardTitleProps extends ViewProps {
 export interface CardProps {
   elevation?: number;
   onPress?: () => any;
+  onLongPress?: () => any;
   children: React.ReactNode;
   style?: any;
   theme?: ThemeShape;
   testID?: string;
+  accessible?: boolean;
 }
 
 export declare class Card extends React.Component<CardProps> {
