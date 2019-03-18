@@ -64,8 +64,7 @@ type Props = React.ElementConfig<typeof View> & {
 class DrawerSection extends React.Component<Props> {
   static displayName = 'Drawer.Section';
 
-  render() {
-    const { children, title, theme, numberOfLines, ...rest } = this.props;
+  static titleElement(text, theme, numberOfLines) {
     const { colors, fonts } = theme;
     const titleColor = color(colors.text)
       .alpha(0.54)
@@ -73,19 +72,24 @@ class DrawerSection extends React.Component<Props> {
       .string();
     const fontFamily = fonts.medium;
     const numLines = typeof numberOfLines === 'undefined' ? 1 : numberOfLines;
+    return (
+      <View style={{ minHeight: 40, justifyContent: 'center' }}>
+        <Text
+          numberOfLines={numLines}
+          style={{ color: titleColor, fontFamily, marginLeft: 16 }}
+        >
+          {title}
+        </Text>
+      </View>
+    );
+  }
+
+  render() {
+    const { children, title, theme, numberOfLines, ...rest } = this.props;
     let titleElement;
     if (title) {
       if (typeof title === 'string') {
-        titleElement = (
-          <View style={{ minHeight: 40, justifyContent: 'center' }}>
-            <Text
-              numberOfLines={numLines}
-              style={{ color: titleColor, fontFamily, marginLeft: 16 }}
-            >
-              {title}
-            </Text>
-          </View>
-        );
+        titleElement = DrawerSection.titleElement(title, theme, numberOfLines);
       } else {
         titleElement = title;
       }
