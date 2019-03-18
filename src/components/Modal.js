@@ -8,6 +8,7 @@ import {
   StyleSheet,
   TouchableWithoutFeedback,
   BackHandler,
+  SafeAreaView,
 } from 'react-native';
 import { polyfill } from 'react-lifecycles-compat';
 import Surface from './Surface';
@@ -179,7 +180,7 @@ class Modal extends React.Component<Props, State> {
             ]}
           />
         </TouchableWithoutFeedback>
-        <View pointerEvents="box-none" style={styles.wrapper}>
+        <SafeAreaView pointerEvents="box-none" style={styles.wrapper}>
           <Surface
             style={[
               { opacity: this.state.opacity },
@@ -189,7 +190,7 @@ class Modal extends React.Component<Props, State> {
           >
             {children}
           </Surface>
-        </View>
+        </SafeAreaView>
       </Animated.View>
     );
   }
