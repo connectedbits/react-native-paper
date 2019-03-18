@@ -20,4 +20,10 @@ export interface SectionProps extends ViewProps {
   theme?: ThemeShape;
 }
 
-export declare class Section extends React.Component<SectionProps> {}
+export declare class Section extends React.Component<SectionProps> {
+  public static titleElement(
+    title: string,
+    theme: ThemeShape,
+    numberOfLines: number | null
+  ): React.ReactNode;
+}

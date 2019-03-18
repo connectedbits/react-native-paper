@@ -64,7 +64,7 @@ type Props = React.ElementConfig<typeof View> & {
 class DrawerSection extends React.Component<Props> {
   static displayName = 'Drawer.Section';
 
-  static titleElement(text, theme, numberOfLines) {
+  static titleElement(title, theme, numberOfLines) {
     const { colors, fonts } = theme;
     const titleColor = color(colors.text)
       .alpha(0.54)
