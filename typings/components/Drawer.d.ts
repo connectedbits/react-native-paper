@@ -15,7 +15,7 @@ export declare class Item extends React.Component<ItemProps> {}
 
 export interface SectionProps extends ViewProps {
   children: React.ReactNode;
-  title?: string;
+  title?: string | React.ReactNode;
   numberOfLines?: number | null;
   theme?: ThemeShape;
 }
