@@ -12,7 +12,7 @@ type Props = React.ElementConfig<typeof View> & {
   /**
    * Title to show as the header for the section.
    */
-  title?: string,
+  title?: string | React.Node,
   /**
    * Number of lines to display for text, defaults to 1.
    */
@@ -73,9 +73,10 @@ class DrawerSection extends React.Component<Props> {
       .string();
     const fontFamily = fonts.medium;
     const numLines = typeof numberOfLines === 'undefined' ? 1 : numberOfLines;
-    return (
-      <View {...rest}>
-        {title && (
+    let titleElement;
+    if (title) {
+      if (typeof title === 'string') {
+        titleElement = (
           <View style={{ minHeight: 40, justifyContent: 'center' }}>
             <Text
               numberOfLines={numLines}
@@ -84,7 +85,15 @@ class DrawerSection extends React.Component<Props> {
               {title}
             </Text>
           </View>
-        )}
+        );
+      } else {
+        titleElement = title;
+      }
+    }
+
+    return (
+      <View {...rest}>
+        {titleElement}
         {children}
         <Divider style={{ marginVertical: 4 }} />
       </View>
