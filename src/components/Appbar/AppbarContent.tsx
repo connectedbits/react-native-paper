@@ -1,3 +1,4 @@
+import color from 'color';
 import * as React from 'react';
 import {
   Platform,
@@ -8,14 +9,10 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import color from 'color';
-
-import Text from '../Typography/Text';
-
 import { withTheme } from '../../core/theming';
 import { white } from '../../styles/colors';
-
-import { Theme, $RemoveChildren } from '../../types';
+import { $RemoveChildren, Theme } from '../../types';
+import Text from '../Typography/Text';
 
 type Props = $RemoveChildren<typeof View> & {
   /**
@@ -46,11 +43,11 @@ type Props = $RemoveChildren<typeof View> & {
   /**
    *  Title uses font scaling
    */
-  allowTitleFontScaling?: boolean,
+  allowTitleFontScaling?: boolean;
   /**
    * Subtitle uses font scaling
    */
-  allowSubtitleFontScaling?: boolean,
+  allowSubtitleFontScaling?: boolean;
   /**
    * @optional
    */
