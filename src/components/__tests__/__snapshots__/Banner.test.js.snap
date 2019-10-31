@@ -18,9 +18,15 @@ exports[`renders hidden banner, without action buttons and without image 1`] = `
 >
   <View
     style={
-      Object {
-        "overflow": "hidden",
-      }
+      Array [
+        Object {
+          "alignSelf": "center",
+          "maxWidth": 960,
+          "overflow": "hidden",
+          "width": "100%",
+        },
+        undefined,
+      ]
     }
   >
     <View
@@ -62,9 +68,9 @@ exports[`renders hidden banner, without action buttons and without image 1`] = `
             Array [
               Object {
                 "color": "#000000",
-                "fontFamily": "Helvetica Neue",
+                "fontFamily": "System",
+                "fontWeight": "400",
                 "textAlign": "left",
-                "writingDirection": "ltr",
               },
               Object {
                 "flex": 1,
@@ -92,6 +98,7 @@ exports[`renders hidden banner, without action buttons and without image 1`] = `
 
 exports[`renders visible banner, with action buttons and with image 1`] = `
 <View
+  image={[Function]}
   style={
     Object {
       "backgroundColor": "#ffffff",
@@ -108,9 +115,15 @@ exports[`renders visible banner, with action buttons and with image 1`] = `
 >
   <View
     style={
-      Object {
-        "overflow": "hidden",
-      }
+      Array [
+        Object {
+          "alignSelf": "center",
+          "maxWidth": 960,
+          "overflow": "hidden",
+          "width": "100%",
+        },
+        undefined,
+      ]
     }
   >
     <View
@@ -135,35 +148,14 @@ exports[`renders visible banner, with action buttons and with image 1`] = `
           }
         }
       >
-        <View
-          style={
-            Object {
-              "margin": 8,
-            }
-          }
-        >
-          <Image
-            source={
-              Object {
-                "uri": "https://callstack.com/images/team/Satya.png",
-              }
-            }
-            style={
-              Object {
-                "height": 40,
-                "width": 40,
-              }
-            }
-          />
-        </View>
         <Text
           style={
             Array [
               Object {
                 "color": "#000000",
-                "fontFamily": "Helvetica Neue",
+                "fontFamily": "System",
+                "fontWeight": "400",
                 "textAlign": "left",
-                "writingDirection": "ltr",
               },
               Object {
                 "flex": 1,
@@ -195,18 +187,12 @@ exports[`renders visible banner, with action buttons and with image 1`] = `
               "elevation": 0,
               "margin": 4,
               "minWidth": "auto",
-              "shadowColor": "#000000",
-              "shadowOffset": Object {
-                "height": 0,
-                "width": 0,
-              },
-              "shadowOpacity": 0.24,
-              "shadowRadius": 0,
             }
           }
         >
           <View
             accessibilityRole="button"
+            accessibilityStates={Array []}
             accessible={true}
             isTVSelectable={true}
             onResponderGrant={[Function]}
@@ -244,9 +230,9 @@ exports[`renders visible banner, with action buttons and with image 1`] = `
                   Array [
                     Object {
                       "color": "#000000",
-                      "fontFamily": "Helvetica Neue",
+                      "fontFamily": "System",
+                      "fontWeight": "400",
                       "textAlign": "left",
-                      "writingDirection": "ltr",
                     },
                     Array [
                       Object {
@@ -259,17 +245,23 @@ exports[`renders visible banner, with action buttons and with image 1`] = `
                         "marginHorizontal": 8,
                       },
                       Object {
-                        "color": "#6200ee",
-                        "fontFamily": "HelveticaNeue-Medium",
+                        "textTransform": "uppercase",
                       },
                       Object {
-                        "fontFamily": "HelveticaNeue-Medium",
+                        "color": "#6200ee",
+                        "fontFamily": "System",
+                        "fontWeight": "500",
                       },
+                      Object {
+                        "fontFamily": "System",
+                        "fontWeight": "500",
+                      },
+                      undefined,
                     ],
                   ]
                 }
               >
-                FIRST
+                first
               </Text>
             </View>
           </View>
@@ -298,9 +290,15 @@ exports[`renders visible banner, with action buttons and without image 1`] = `
 >
   <View
     style={
-      Object {
-        "overflow": "hidden",
-      }
+      Array [
+        Object {
+          "alignSelf": "center",
+          "maxWidth": 960,
+          "overflow": "hidden",
+          "width": "100%",
+        },
+        undefined,
+      ]
     }
   >
     <View
@@ -330,9 +328,9 @@ exports[`renders visible banner, with action buttons and without image 1`] = `
             Array [
               Object {
                 "color": "#000000",
-                "fontFamily": "Helvetica Neue",
+                "fontFamily": "System",
+                "fontWeight": "400",
                 "textAlign": "left",
-                "writingDirection": "ltr",
               },
               Object {
                 "flex": 1,
@@ -364,18 +362,12 @@ exports[`renders visible banner, with action buttons and without image 1`] = `
               "elevation": 0,
               "margin": 4,
               "minWidth": "auto",
-              "shadowColor": "#000000",
-              "shadowOffset": Object {
-                "height": 0,
-                "width": 0,
-              },
-              "shadowOpacity": 0.24,
-              "shadowRadius": 0,
             }
           }
         >
           <View
             accessibilityRole="button"
+            accessibilityStates={Array []}
             accessible={true}
             isTVSelectable={true}
             onResponderGrant={[Function]}
@@ -413,9 +405,9 @@ exports[`renders visible banner, with action buttons and without image 1`] = `
                   Array [
                     Object {
                       "color": "#000000",
-                      "fontFamily": "Helvetica Neue",
+                      "fontFamily": "System",
+                      "fontWeight": "400",
                       "textAlign": "left",
-                      "writingDirection": "ltr",
                     },
                     Array [
                       Object {
@@ -428,17 +420,23 @@ exports[`renders visible banner, with action buttons and without image 1`] = `
                         "marginHorizontal": 8,
                       },
                       Object {
-                        "color": "#6200ee",
-                        "fontFamily": "HelveticaNeue-Medium",
+                        "textTransform": "uppercase",
                       },
                       Object {
-                        "fontFamily": "HelveticaNeue-Medium",
+                        "color": "#6200ee",
+                        "fontFamily": "System",
+                        "fontWeight": "500",
                       },
+                      Object {
+                        "fontFamily": "System",
+                        "fontWeight": "500",
+                      },
+                      undefined,
                     ],
                   ]
                 }
               >
-                FIRST
+                first
               </Text>
             </View>
           </View>
@@ -454,18 +452,12 @@ exports[`renders visible banner, with action buttons and without image 1`] = `
               "elevation": 0,
               "margin": 4,
               "minWidth": "auto",
-              "shadowColor": "#000000",
-              "shadowOffset": Object {
-                "height": 0,
-                "width": 0,
-              },
-              "shadowOpacity": 0.24,
-              "shadowRadius": 0,
             }
           }
         >
           <View
             accessibilityRole="button"
+            accessibilityStates={Array []}
             accessible={true}
             isTVSelectable={true}
             onResponderGrant={[Function]}
@@ -503,9 +495,9 @@ exports[`renders visible banner, with action buttons and without image 1`] = `
                   Array [
                     Object {
                       "color": "#000000",
-                      "fontFamily": "Helvetica Neue",
+                      "fontFamily": "System",
+                      "fontWeight": "400",
                       "textAlign": "left",
-                      "writingDirection": "ltr",
                     },
                     Array [
                       Object {
@@ -518,17 +510,23 @@ exports[`renders visible banner, with action buttons and without image 1`] = `
                         "marginHorizontal": 8,
                       },
                       Object {
-                        "color": "#6200ee",
-                        "fontFamily": "HelveticaNeue-Medium",
+                        "textTransform": "uppercase",
                       },
                       Object {
-                        "fontFamily": "HelveticaNeue-Medium",
+                        "color": "#6200ee",
+                        "fontFamily": "System",
+                        "fontWeight": "500",
                       },
+                      Object {
+                        "fontFamily": "System",
+                        "fontWeight": "500",
+                      },
+                      undefined,
                     ],
                   ]
                 }
               >
-                SECOND
+                second
               </Text>
             </View>
           </View>
@@ -541,6 +539,7 @@ exports[`renders visible banner, with action buttons and without image 1`] = `
 
 exports[`renders visible banner, without action buttons and with image 1`] = `
 <View
+  image={[Function]}
   style={
     Object {
       "backgroundColor": "#ffffff",
@@ -557,9 +556,15 @@ exports[`renders visible banner, without action buttons and with image 1`] = `
 >
   <View
     style={
-      Object {
-        "overflow": "hidden",
-      }
+      Array [
+        Object {
+          "alignSelf": "center",
+          "maxWidth": 960,
+          "overflow": "hidden",
+          "width": "100%",
+        },
+        undefined,
+      ]
     }
   >
     <View
@@ -584,35 +589,14 @@ exports[`renders visible banner, without action buttons and with image 1`] = `
           }
         }
       >
-        <View
-          style={
-            Object {
-              "margin": 8,
-            }
-          }
-        >
-          <Image
-            source={
-              Object {
-                "uri": "https://callstack.com/images/team/Satya.png",
-              }
-            }
-            style={
-              Object {
-                "height": 40,
-                "width": 40,
-              }
-            }
-          />
-        </View>
         <Text
           style={
             Array [
               Object {
                 "color": "#000000",
-                "fontFamily": "Helvetica Neue",
+                "fontFamily": "System",
+                "fontWeight": "400",
                 "textAlign": "left",
-                "writingDirection": "ltr",
               },
               Object {
                 "flex": 1,
@@ -656,9 +640,15 @@ exports[`renders visible banner, without action buttons and without image 1`] = 
 >
   <View
     style={
-      Object {
-        "overflow": "hidden",
-      }
+      Array [
+        Object {
+          "alignSelf": "center",
+          "maxWidth": 960,
+          "overflow": "hidden",
+          "width": "100%",
+        },
+        undefined,
+      ]
     }
   >
     <View
@@ -688,9 +678,9 @@ exports[`renders visible banner, without action buttons and without image 1`] = 
             Array [
               Object {
                 "color": "#000000",
-                "fontFamily": "Helvetica Neue",
+                "fontFamily": "System",
+                "fontWeight": "400",
                 "textAlign": "left",
-                "writingDirection": "ltr",
               },
               Object {
                 "flex": 1,
