@@ -81,9 +81,11 @@ class AppbarContent extends React.Component<Props> {
       .rgb()
       .string();
 
-    return (
-      <TouchableWithoutFeedback onPress={onPress}>
-        <View style={[styles.container, style]} {...rest}>
+    let titleElement: React.ReactNode | null = null;
+    let subtitleElement: React.ReactNode | null = null;
+    if (title) {
+      if (typeof title === 'string') {
+        titleElement = (
           <Text
             style={[
               {
@@ -101,15 +103,31 @@ class AppbarContent extends React.Component<Props> {
           >
             {title}
           </Text>
-          {subtitle ? (
-            <Text
-              style={[styles.subtitle, { color: subtitleColor }, subtitleStyle]}
-              numberOfLines={1}
-              allowFontScaling={allowSubtitleFontScaling}
-            >
-              {subtitle}
-            </Text>
-          ) : null}
+        );
+      } else {
+        titleElement = title;
+      }
+    }
+    if (subtitle) {
+      if (typeof subtitle === 'string') {
+        subtitleElement = (
+          <Text
+            style={[styles.subtitle, { color: subtitleColor }, subtitleStyle]}
+            numberOfLines={1}
+            allowFontScaling={allowSubtitleFontScaling}
+          >
+            {subtitle}
+          </Text>
+        );
+      } else {
+        subtitleElement = subtitle;
+      }
+    }
+    return (
+      <TouchableWithoutFeedback onPress={onPress}>
+        <View style={[styles.container, style]} {...rest}>
+          {titleElement}
+          {subtitleElement}
         </View>
       </TouchableWithoutFeedback>
     );
