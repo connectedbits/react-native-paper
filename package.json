@@ -12,7 +12,7 @@
   "sideEffects": false,
   "repository": {
     "type": "git",
-    "url": "https://github.com/callstack/react-native-paper.git"
+    "url": "https://github.com/connectedbits/react-native-paper.git"
   },
   "author": "",
   "license": "MIT",
@@ -39,9 +39,7 @@
     "docs": "yarn --cwd docs",
     "example": "yarn --cwd example"
   },
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
+  "publishConfig": { "registry": "https://npm.pkg.github.com/" },
   "dependencies": {
     "@callstack/react-theme-provider": "^3.0.5",
     "color": "^3.1.2",
