@@ -1,6 +1,6 @@
 {
   "name": "@connectedbits/react-native-paper",
-  "version": "3.1.1",
+  "version": "3.2.0",
   "description": "Material design for React Native",
   "main": "lib/commonjs/index.js",
   "module": "lib/module/index.js",
@@ -38,7 +38,9 @@
     "docs": "yarn --cwd docs",
     "example": "yarn --cwd example"
   },
-  "publishConfig": { "registry": "https://npm.pkg.github.com/" },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "dependencies": {
     "@callstack/react-theme-provider": "^3.0.5",
     "color": "^3.1.2",
