@@ -17,9 +17,8 @@
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/callstack/react-native-paper/issues"
+    "url": "https://github.com/connectedbits/react-native-paper/issues"
   },
-  "homepage": "https://callstack.github.io/react-native-paper",
   "keywords": [
     "android",
     "ios",
