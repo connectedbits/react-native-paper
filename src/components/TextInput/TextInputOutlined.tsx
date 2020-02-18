@@ -84,6 +84,7 @@ class TextInputOutlined extends React.Component<ChildTextInputProps, {}> {
       activeColor,
       outlineColor,
       placeholderColor,
+      errorColor,
       containerStyle;
 
     if (disabled) {
@@ -96,6 +97,7 @@ class TextInputOutlined extends React.Component<ChildTextInputProps, {}> {
       inputTextColor = colors.text;
       activeColor = error ? colors.error : colors.primary;
       placeholderColor = outlineColor = colors.placeholder;
+      errorColor = colors.error;
     }
 
     const labelScale = MINIMIZED_LABEL_FONT_SIZE / fontSize;
@@ -177,6 +179,7 @@ class TextInputOutlined extends React.Component<ChildTextInputProps, {}> {
       activeColor,
       placeholderColor,
       backgroundColor,
+      errorColor,
     };
 
     const minHeight = height || (dense ? MIN_DENSE_HEIGHT : MIN_HEIGHT);
@@ -209,39 +212,38 @@ class TextInputOutlined extends React.Component<ChildTextInputProps, {}> {
               labelBackground={LabelBackground}
             />
 
-            {render &&
-              render({
-                ...rest,
-                ref: innerRef,
-                onChangeText,
-                placeholder: label
-                  ? parentState.placeholder
-                  : this.props.placeholder,
-                placeholderTextColor: placeholderColor,
-                editable: !disabled && editable,
-                selectionColor:
-                  typeof selectionColor === 'undefined'
-                    ? activeColor
-                    : selectionColor,
-                onFocus,
-                onBlur,
-                underlineColorAndroid: 'transparent',
-                multiline,
-                style: [
-                  styles.input,
-                  !multiline || (multiline && height)
-                    ? { height: inputHeight }
-                    : {},
-                  paddingOut,
-                  {
-                    ...font,
-                    fontSize,
-                    fontWeight,
-                    color: inputTextColor,
-                    textAlignVertical: multiline ? 'top' : 'center',
-                  },
-                ],
-              } as RenderProps)}
+            {render?.({
+              ...rest,
+              ref: innerRef,
+              onChangeText,
+              placeholder: label
+                ? parentState.placeholder
+                : this.props.placeholder,
+              placeholderTextColor: placeholderColor,
+              editable: !disabled && editable,
+              selectionColor:
+                typeof selectionColor === 'undefined'
+                  ? activeColor
+                  : selectionColor,
+              onFocus,
+              onBlur,
+              underlineColorAndroid: 'transparent',
+              multiline,
+              style: [
+                styles.input,
+                !multiline || (multiline && height)
+                  ? { height: inputHeight }
+                  : {},
+                paddingOut,
+                {
+                  ...font,
+                  fontSize,
+                  fontWeight,
+                  color: inputTextColor,
+                  textAlignVertical: multiline ? 'top' : 'center',
+                },
+              ],
+            } as RenderProps)}
           </View>
         </View>
       </View>

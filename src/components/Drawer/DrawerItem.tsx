@@ -28,6 +28,10 @@ type Props = {
    * Function to execute on press.
    */
   onPress?: () => void;
+  /**
+   * Accessibility label for the button. This is read by the screen reader when the user taps the button.
+   */
+  accessibilityLabel?: string;
   style?: StyleProp<ViewStyle>;
   /**
    * @optional
@@ -62,6 +66,7 @@ class DrawerItem extends React.Component<Props> {
       style,
       onPress,
       numberOfLines,
+      accessibilityLabel,
       ...rest
     } = this.props;
     const { colors, roundness } = theme;
@@ -116,6 +121,7 @@ class DrawerItem extends React.Component<Props> {
           accessibilityComponentType="button"
           accessibilityRole="button"
           accessibilityStates={active ? ['selected'] : []}
+          accessibilityLabel={accessibilityLabel}
         >
           <View style={styles.wrapper}>
             {icon ? (

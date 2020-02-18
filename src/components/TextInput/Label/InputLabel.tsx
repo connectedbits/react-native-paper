@@ -25,6 +25,7 @@ const InputLabel = (props: InputLabelProps) => {
     topPosition,
     paddingOffset,
     placeholderColor,
+    errorColor,
   } = props.labelProps;
 
   const labelTranslationX = {
@@ -87,12 +88,11 @@ const InputLabel = (props: InputLabelProps) => {
         labelTranslationX,
       ]}
     >
-      {labelBackground &&
-        labelBackground({
-          parentState,
-          labelStyle,
-          labelProps: props.labelProps,
-        })}
+      {labelBackground?.({
+        parentState,
+        labelStyle,
+        labelProps: props.labelProps,
+      })}
       <AnimatedText
         onLayout={onLayoutAnimatedText}
         style={[
@@ -123,7 +123,7 @@ const InputLabel = (props: InputLabelProps) => {
           labelStyle,
           paddingOffset,
           {
-            color: placeholderColor,
+            color: error && errorColor ? errorColor : placeholderColor,
             opacity: placeholderOpacity,
           },
         ]}

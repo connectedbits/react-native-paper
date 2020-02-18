@@ -100,7 +100,7 @@ type NativeEvent = {
  *             onPress: () => this.setState({ visible: false }),
  *           },
  *         ]}
- *         image={({ size }) =>
+ *         icon={({ size }) =>
  *           <Image
  *             source={{ uri: 'https://avatars3.githubusercontent.com/u/17571969?s=400&v=4' }}
  *             style={{
@@ -147,15 +147,17 @@ class Banner extends React.Component<Props, State> {
   };
 
   private show = () => {
+    const { scale } = this.props.theme.animation;
     Animated.timing(this.state.position, {
-      duration: 250,
+      duration: 250 * scale,
       toValue: 1,
     }).start();
   };
 
   private hide = () => {
+    const { scale } = this.props.theme.animation;
     Animated.timing(this.state.position, {
-      duration: 200,
+      duration: 200 * scale,
       toValue: 0,
     }).start();
   };

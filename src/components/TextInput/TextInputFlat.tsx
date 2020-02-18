@@ -88,7 +88,11 @@ class TextInputFlat extends React.Component<ChildTextInputProps, {}> {
       paddingHorizontal: number;
     };
 
-    let inputTextColor, activeColor, underlineColorCustom, placeholderColor;
+    let inputTextColor,
+      activeColor,
+      underlineColorCustom,
+      placeholderColor,
+      errorColor;
 
     if (disabled) {
       inputTextColor = activeColor = color(colors.text)
@@ -101,6 +105,7 @@ class TextInputFlat extends React.Component<ChildTextInputProps, {}> {
       inputTextColor = colors.text;
       activeColor = error ? colors.error : colors.primary;
       placeholderColor = colors.placeholder;
+      errorColor = colors.error;
       underlineColorCustom = underlineColor || colors.disabled;
     }
 
@@ -202,6 +207,7 @@ class TextInputFlat extends React.Component<ChildTextInputProps, {}> {
       hasActiveOutline,
       activeColor,
       placeholderColor,
+      errorColor,
     };
 
     const minHeight =
@@ -230,41 +236,38 @@ class TextInputFlat extends React.Component<ChildTextInputProps, {}> {
         >
           <InputLabel parentState={parentState} labelProps={labelProps} />
 
-          {render &&
-            render({
-              ...rest,
-              ref: innerRef,
-              onChangeText,
-              // @ts-ignore
-              placeholder: label
-                ? parentState.placeholder
-                : this.props.placeholder,
-              placeholderTextColor: placeholderColor,
-              editable: !disabled && editable,
-              selectionColor:
-                typeof selectionColor === 'undefined'
-                  ? activeColor
-                  : selectionColor,
-              onFocus,
-              onBlur,
-              underlineColorAndroid: 'transparent',
-              multiline,
-              style: [
-                styles.input,
-                paddingOffset,
-                !multiline || (multiline && height)
-                  ? { height: flatHeight }
-                  : {},
-                paddingFlat,
-                {
-                  ...font,
-                  fontSize,
-                  fontWeight,
-                  color: inputTextColor,
-                  textAlignVertical: multiline ? 'top' : 'center',
-                },
-              ],
-            })}
+          {render?.({
+            ...rest,
+            ref: innerRef,
+            onChangeText,
+            // @ts-ignore
+            placeholder: label
+              ? parentState.placeholder
+              : this.props.placeholder,
+            placeholderTextColor: placeholderColor,
+            editable: !disabled && editable,
+            selectionColor:
+              typeof selectionColor === 'undefined'
+                ? activeColor
+                : selectionColor,
+            onFocus,
+            onBlur,
+            underlineColorAndroid: 'transparent',
+            multiline,
+            style: [
+              styles.input,
+              paddingOffset,
+              !multiline || (multiline && height) ? { height: flatHeight } : {},
+              paddingFlat,
+              {
+                ...font,
+                fontSize,
+                fontWeight,
+                color: inputTextColor,
+                textAlignVertical: multiline ? 'top' : 'center',
+              },
+            ],
+          })}
         </View>
       </View>
     );
