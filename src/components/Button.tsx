@@ -81,6 +81,10 @@ type Props = React.ComponentProps<typeof Surface> & {
    * @optional
    */
   theme: Theme;
+  /**
+   * testID to be used on tests.
+   */
+  testID?: string;
 };
 
 type State = {
@@ -131,18 +135,22 @@ class Button extends React.Component<Props, State> {
 
   private handlePressIn = () => {
     if (this.props.mode === 'contained') {
+      const { scale } = this.props.theme.animation;
       Animated.timing(this.state.elevation, {
         toValue: 8,
-        duration: 200,
+        duration: 200 * scale,
+        useNativeDriver: false,
       }).start();
     }
   };
 
   private handlePressOut = () => {
     if (this.props.mode === 'contained') {
+      const { scale } = this.props.theme.animation;
       Animated.timing(this.state.elevation, {
         toValue: 2,
-        duration: 150,
+        duration: 150 * scale,
+        useNativeDriver: false,
       }).start();
     }
   };
@@ -164,6 +172,7 @@ class Button extends React.Component<Props, State> {
       theme,
       contentStyle,
       labelStyle,
+      testID,
       ...rest
     } = this.props;
     const { colors, roundness } = theme;
@@ -265,6 +274,7 @@ class Button extends React.Component<Props, State> {
           disabled={disabled}
           rippleColor={rippleColor}
           style={touchableStyle}
+          testID={testID}
         >
           <View style={[styles.content, contentStyle]}>
             {icon && loading !== true ? (

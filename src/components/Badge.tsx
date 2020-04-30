@@ -1,11 +1,5 @@
 import * as React from 'react';
-import {
-  Animated,
-  StyleSheet,
-  StyleProp,
-  TextInput,
-  ViewStyle,
-} from 'react-native';
+import { Animated, StyleSheet, StyleProp, TextStyle } from 'react-native';
 import color from 'color';
 import { black, white } from '../styles/colors';
 import { withTheme } from '../core/theming';
@@ -13,7 +7,7 @@ import { Theme } from '../types';
 
 const defaultSize = 20;
 
-type Props = React.ComponentProps<typeof TextInput> & {
+type Props = React.ComponentProps<typeof Animated.Text> & {
   /**
    * Whether the badge is visible
    */
@@ -26,7 +20,8 @@ type Props = React.ComponentProps<typeof TextInput> & {
    * Size of the `Badge`.
    */
   size?: number;
-  style?: StyleProp<ViewStyle>;
+  style?: StyleProp<TextStyle>;
+  ref?: React.RefObject<typeof Animated.Text>;
   /**
    * @optional
    */
@@ -64,19 +59,32 @@ class Badge extends React.Component<Props, State> {
   };
 
   componentDidUpdate(prevProps: Props) {
-    const { visible } = this.props;
+    const {
+      visible,
+      theme: {
+        animation: { scale },
+      },
+    } = this.props;
 
     if (visible !== prevProps.visible) {
       Animated.timing(this.state.opacity, {
         toValue: visible ? 1 : 0,
-        duration: 150,
+        duration: 150 * scale,
         useNativeDriver: true,
       }).start();
     }
   }
 
   render() {
-    const { children, size = defaultSize, style, theme } = this.props;
+    const {
+      children,
+      size = defaultSize,
+      style,
+      theme,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      visible,
+      ...rest
+    } = this.props;
     const { opacity } = this.state;
 
     const { backgroundColor = theme.colors.notification, ...restStyle } =
@@ -103,6 +111,7 @@ class Badge extends React.Component<Props, State> {
           styles.container,
           restStyle,
         ]}
+        {...rest}
       >
         {children}
       </Animated.Text>

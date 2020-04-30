@@ -131,7 +131,7 @@ class AppbarContent extends React.Component<Props> {
       }
     }
     return (
-      <TouchableWithoutFeedback onPress={onPress}>
+      <TouchableWithoutFeedback onPress={onPress} disabled={!onPress}>
         <View style={[styles.container, style]} {...rest}>
           {titleElement}
           {subtitleElement}
