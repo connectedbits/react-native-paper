@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import { withTheme } from '../../core/theming';
 import { white } from '../../styles/colors';
-import { $RemoveChildren, Theme } from '../../types';
+import type { $RemoveChildren } from '../../types';
 import Text from '../Typography/Text';
 
 type Props = $RemoveChildren<typeof View> & {
@@ -55,11 +55,31 @@ type Props = $RemoveChildren<typeof View> & {
   /**
    * @optional
    */
-  theme: Theme;
+  theme: ReactNativePaper.Theme;
 };
 
 /**
- * A component used to display a title and optional subtitle in a appbar.
+ * A component used to display a title and optional subtitle in an appbar.
+ *
+ * <div class="screenshots">
+ *   <figure>
+ *     <img class="medium" src="screenshots/appbar-content.png" />
+ *   </figure>
+ * </div>
+ *
+ * ## Usage
+ * ```js
+ * import * as React from 'react';
+ * import { Appbar } from 'react-native-paper';
+ *
+ * const MyComponent = () => (
+ *     <Appbar.Header>
+ *        <Appbar.Content title="Title" subtitle={'Subtitle'} />
+ *     </Appbar.Header>
+ * );
+ *
+ * export default MyComponent;
+ * ```
  */
 class AppbarContent extends React.Component<Props> {
   static displayName = 'Appbar.Content';
@@ -81,10 +101,7 @@ class AppbarContent extends React.Component<Props> {
     } = this.props;
     const { fonts } = theme;
 
-    const subtitleColor = color(titleColor)
-      .alpha(0.7)
-      .rgb()
-      .string();
+    const subtitleColor = color(titleColor).alpha(0.7).rgb().string();
 
     let titleElement: React.ReactNode | null = null;
     let subtitleElement: React.ReactNode | null = null;

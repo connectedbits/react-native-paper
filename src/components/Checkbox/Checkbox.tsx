@@ -1,14 +1,10 @@
 import * as React from 'react';
 import { Platform } from 'react-native';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import CheckboxIOS, { CheckboxIOS as _CheckboxIOS } from './CheckboxIOS';
-import CheckboxAndroid, {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  CheckboxAndroid as _CheckboxAndroid,
-} from './CheckboxAndroid';
-import CheckboxItem from './CheckboxItem';
 import { withTheme } from '../../core/theming';
-import { Theme } from '../../types';
+import CheckboxAndroid from './CheckboxAndroid';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import CheckboxIOS from './CheckboxIOS';
+import CheckboxItem from './CheckboxItem';
 
 type Props = {
   /**
@@ -34,7 +30,7 @@ type Props = {
   /**
    * @optional
    */
-  theme: Theme;
+  theme: ReactNativePaper.Theme;
 };
 
 /**
@@ -64,21 +60,20 @@ type Props = {
  * import * as React from 'react';
  * import { Checkbox } from 'react-native-paper';
  *
- * export default class MyComponent extends React.Component {
- *   state = {
- *     checked: false,
- *   };
+ * const MyComponent = () => {
+ *   const [checked, setChecked] = React.useState(false);
  *
- *   render() {
- *     const { checked } = this.state;
- *     return (
- *       <Checkbox
- *         status={checked ? 'checked' : 'unchecked'}
- *         onPress={() => { this.setState({ checked: !checked }); }}
- *       />
- *     );
- *   }
- * }
+ *   return (
+ *     <Checkbox
+ *       status={checked ? 'checked' : 'unchecked'}
+ *       onPress={() => {
+ *         setChecked(!checked);
+ *       }}
+ *     />
+ *   );
+ * };
+ *
+ * export default MyComponent;
  * ```
  */
 class Checkbox extends React.Component<Props> {

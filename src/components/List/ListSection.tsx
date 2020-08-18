@@ -8,7 +8,6 @@ import {
 } from 'react-native';
 import ListSubheader from './ListSubheader';
 import { withTheme } from '../../core/theming';
-import { Theme } from '../../types';
 
 type Props = React.ComponentPropsWithRef<typeof View> & {
   /**
@@ -22,7 +21,7 @@ type Props = React.ComponentPropsWithRef<typeof View> & {
   /**
    * @optional
    */
-  theme: Theme;
+  theme: ReactNativePaper.Theme;
   /**
    * Style that is passed to Title element.
    */
@@ -42,23 +41,16 @@ type Props = React.ComponentPropsWithRef<typeof View> & {
  * import * as React from 'react';
  * import { List } from 'react-native-paper';
  *
- * class MyComponent extends React.Component {
- *   render() {
- *     return (
- *       <List.Section>
- *         <List.Subheader>Some title</List.Subheader>
- *         <List.Item
- *           title="First Item"
- *           left={() => <List.Icon icon="folder" />}
- *        />
- *         <List.Item
- *           title="Second Item"
- *           left={() => <List.Icon color="#000" icon="folder" />}
- *        />
- *      </List.Section>
- *     );
- *   }
- * }
+ * const MyComponent = () => (
+ *   <List.Section>
+ *     <List.Subheader>Some title</List.Subheader>
+ *     <List.Item title="First Item" left={() => <List.Icon icon="folder" />} />
+ *     <List.Item
+ *       title="Second Item"
+ *       left={() => <List.Icon color="#000" icon="folder" />}
+ *     />
+ *   </List.Section>
+ * );
  *
  * export default MyComponent;
  * ```

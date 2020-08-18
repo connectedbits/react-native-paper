@@ -2,10 +2,10 @@ import * as React from 'react';
 import { Alert, ScrollView, StyleSheet } from 'react-native';
 import {
   Avatar,
-  Paragraph,
-  Card,
   Button,
+  Card,
   IconButton,
+  Paragraph,
   useTheme,
 } from 'react-native-paper';
 
@@ -90,7 +90,7 @@ const CardExample = () => {
         <Card.Cover source={require('../../assets/images/city.jpg')} />
         <Card.Title
           title="Long Pressable City"
-          left={props => <Avatar.Icon {...props} icon="city" />}
+          left={(props) => <Avatar.Icon {...props} icon="city" />}
         />
         <Card.Content>
           <Paragraph>

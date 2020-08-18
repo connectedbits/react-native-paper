@@ -1,9 +1,13 @@
-import * as React from 'react';
 import color from 'color';
-import { StyleProp, ViewStyle, TouchableWithoutFeedback } from 'react-native';
+import * as React from 'react';
+import type {
+  StyleProp,
+  TouchableWithoutFeedback,
+  ViewStyle,
+} from 'react-native';
 import { black } from '../../styles/colors';
+import type { IconSource } from '../Icon';
 import IconButton from '../IconButton';
-import { IconSource } from '../Icon';
 
 type Props = React.ComponentPropsWithoutRef<typeof IconButton> & {
   /**
@@ -36,6 +40,38 @@ type Props = React.ComponentPropsWithoutRef<typeof IconButton> & {
 
 /**
  * A component used to display an action item in the appbar.
+ * <div class="screenshots">
+ *   <figure>
+ *     <img class="medium" src="screenshots/appbar-action-android.png" />
+ *       <figcaption>Android</figcaption>
+ *   </figure>
+ * </div>
+ *
+ * <div class="screenshots">
+ *   <figure>
+ *     <img class="medium" src="screenshots/appbar-action-ios.png" />
+ *       <figcaption>iOS</figcaption>
+ *   </figure>
+ * </div>
+ *
+ * ## Usage
+ * ```js
+ * import * as React from 'react';
+ * import { Appbar } from 'react-native-paper';
+ * import { Platform } from 'react-native';
+ *
+ * const MORE_ICON = Platform.OS === 'ios' ? 'dots-horizontal' : 'dots-vertical';
+ *
+ * const MyComponent = () => (
+ *     <Appbar.Header>
+ *        <Appbar.Content title="Title" subtitle={'Subtitle'} />
+ *         <Appbar.Action icon="magnify" onPress={() => {}} />
+ *         <Appbar.Action icon={MORE_ICON} onPress={() => {}} />
+ *     </Appbar.Header>
+ * );
+ *
+ * export default MyComponent;
+ * ```
  */
 export default class AppbarAction extends React.Component<Props> {
   static displayName = 'Appbar.Action';
@@ -46,10 +82,7 @@ export default class AppbarAction extends React.Component<Props> {
 
   render() {
     const {
-      color: iconColor = color(black)
-        .alpha(0.54)
-        .rgb()
-        .string(),
+      color: iconColor = color(black).alpha(0.54).rgb().string(),
       icon,
       disabled,
       onPress,

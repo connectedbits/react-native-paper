@@ -12,10 +12,16 @@ type Props = React.ComponentPropsWithRef<typeof View> & {
 /**
  * A component to show a list of actions inside a Card.
  *
+ * <div class="screenshots">
+ *   <figure>
+ *     <img class="medium" src="screenshots/card-actions.png" />
+ *   </figure>
+ * </div>
+ *
  * ## Usage
  * ```js
  * import * as React from 'react';
- * import { Button, Card } from 'react-native-paper';
+ * import { Card, Button } from 'react-native-paper';
  *
  * const MyComponent = () => (
  *   <Card>
@@ -35,7 +41,7 @@ class CardActions extends React.Component<Props> {
   render() {
     return (
       <View {...this.props} style={[styles.container, this.props.style]}>
-        {React.Children.map(this.props.children, child =>
+        {React.Children.map(this.props.children, (child) =>
           React.isValidElement(child)
             ? React.cloneElement(child, {
                 compact: child.props.compact !== false,

@@ -17,6 +17,7 @@ function appendVersionBanner() {
       border-radius: 3px;
       text-align: center;
       background-color: #f8f9fa;
+      background-color: var(--theme-secondary-bg);
       margin-right: 70px;
       
       @media (max-width: 640px) {
@@ -151,7 +152,7 @@ function appendVersionBanner() {
 
 appendVersionBanner();
 
-var mutationObserver = new MutationObserver(mutations => {
+var mutationObserver = new MutationObserver((mutations) => {
   mutations.forEach(appendVersionBanner);
 });
 

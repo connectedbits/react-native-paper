@@ -2,7 +2,7 @@ import * as React from 'react';
 import { StyleSheet, StyleProp, ViewStyle } from 'react-native';
 import Text from '../Typography/Text';
 import TouchableRipple from '../TouchableRipple';
-import { $RemoveChildren } from '../../types';
+import type { $RemoveChildren } from '../../types';
 
 type Props = $RemoveChildren<typeof TouchableRipple> & {
   /**
@@ -19,6 +19,34 @@ type Props = $RemoveChildren<typeof TouchableRipple> & {
   onPress?: () => void;
   style?: StyleProp<ViewStyle>;
 };
+
+/**
+ * A component to show a single cell inside of a table.
+ *
+ * <div class="screenshots">
+ *   <figure>
+ *     <img class="medium" src="screenshots/data-table-row-cell.png" />
+ *   </figure>
+ * </div>
+ *
+ *
+ * ## Usage
+ * ```js
+ * import * as React from 'react';
+ * import { DataTable } from 'react-native-paper';
+ *
+ * const MyComponent = () => (
+ *      <DataTable.Row>
+ *        <DataTable.Cell numeric>1</DataTable.Cell>
+ *        <DataTable.Cell numeric>2</DataTable.Cell>
+ *        <DataTable.Cell numeric>3</DataTable.Cell>
+ *        <DataTable.Cell numeric>4</DataTable.Cell>
+ *      </DataTable.Row>
+ * );
+ *
+ * export default MyComponent;
+ * ```
+ */
 
 class DataTableCell extends React.Component<Props> {
   static displayName = 'DataTable.Cell';

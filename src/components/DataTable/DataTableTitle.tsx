@@ -12,7 +12,6 @@ import color from 'color';
 import MaterialCommunityIcon from '../MaterialCommunityIcon';
 import Text from '../Typography/Text';
 import { withTheme } from '../../core/theming';
-import { Theme } from '../../types';
 
 type Props = React.ComponentPropsWithRef<typeof TouchableWithoutFeedback> & {
   /**
@@ -39,12 +38,46 @@ type Props = React.ComponentPropsWithRef<typeof TouchableWithoutFeedback> & {
   /**
    * @optional
    */
-  theme: Theme;
+  theme: ReactNativePaper.Theme;
 };
 
 type State = {
   spinAnim: Animated.Value;
 };
+
+/**
+ * A component to display title in table header.
+ *
+ * <div class="screenshots">
+ *   <figure>
+ *     <img class="medium" src="screenshots/data-table-header.png" />
+ *   </figure>
+ * </div>
+ *
+ *
+ * ## Usage
+ * ```js
+ * import * as React from 'react';
+ * import { DataTable } from 'react-native-paper';
+ *
+ * const MyComponent = () => (
+ *       <DataTable>
+ *         <DataTable.Header>
+ *           <DataTable.Title
+ *             sortDirection='descending'
+ *           >
+ *             Dessert
+ *           </DataTable.Title>
+ *           <DataTable.Title numeric>Calories</DataTable.Title>
+ *           <DataTable.Title numeric>Fat (g)</DataTable.Title>
+ *         </DataTable.Header>
+ *       </DataTable>
+ *   </Card>
+ * );
+ *
+ * export default MyComponent;
+ * ```
+ */
 
 class DataTableTitle extends React.Component<Props, State> {
   static displayName = 'DataTable.Title';
@@ -83,10 +116,7 @@ class DataTableTitle extends React.Component<Props, State> {
       ...rest
     } = this.props;
 
-    const textColor = color(theme.colors.text)
-      .alpha(0.6)
-      .rgb()
-      .string();
+    const textColor = color(theme.colors.text).alpha(0.6).rgb().string();
 
     const spin = this.state.spinAnim.interpolate({
       inputRange: [0, 1],

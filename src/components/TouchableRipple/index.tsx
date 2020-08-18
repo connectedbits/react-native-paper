@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import color from 'color';
 import { withTheme } from '../../core/theming';
-import { Theme } from '../../types';
 
 type Props = React.ComponentPropsWithRef<typeof TouchableWithoutFeedback> & {
   /**
@@ -53,13 +52,19 @@ type Props = React.ComponentPropsWithRef<typeof TouchableWithoutFeedback> & {
   /**
    * @optional
    */
-  theme: Theme;
+  theme: ReactNativePaper.Theme;
 };
 
 /**
  * A wrapper for views that should respond to touches.
  * Provides a material "ink ripple" interaction effect for supported platforms (>= Android Lollipop).
  * On unsupported platforms, it falls back to a highlight effect.
+ *
+ * <div class="screenshots">
+ *   <figure>
+ *     <img class="medium" src="screenshots/touchable-ripple.gif" />
+ *   </figure>
+ * </div>
  *
  * ## Usage
  * ```js
@@ -72,7 +77,7 @@ type Props = React.ComponentPropsWithRef<typeof TouchableWithoutFeedback> & {
  *     onPress={() => console.log('Pressed')}
  *     rippleColor="rgba(0, 0, 0, .32)"
  *   >
- *     <Text>Press me</Text>
+ *     <Text>Press anywhere</Text>
  *   </TouchableRipple>
  * );
  *
@@ -113,12 +118,10 @@ class TouchableRipple extends React.Component<Props> {
       touchX = dimensions.width / 2;
       touchY = dimensions.height / 2;
     } else {
-      const startX = e.nativeEvent.touches
-        ? e.nativeEvent.touches[0].pageX
-        : e.pageX;
-      const startY = e.nativeEvent.touches
-        ? e.nativeEvent.touches[0].pageY
-        : e.pageY;
+      const { changedTouches, touches } = e.nativeEvent;
+      const touch = touches?.[0] ?? changedTouches?.[0];
+      const startX = touch.pageX ?? e.pageX;
+      const startY = touch.pageY ?? e.pageY;
 
       touchX = startX - dimensions.left;
       touchY = startY - dimensions.top;
@@ -202,7 +205,7 @@ class TouchableRipple extends React.Component<Props> {
 
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
-        containers.forEach(container => {
+        containers.forEach((container) => {
           // @ts-ignore
           const ripple = container.firstChild;
 

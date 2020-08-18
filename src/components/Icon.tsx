@@ -8,7 +8,6 @@ import {
 import { Consumer as SettingsConsumer } from '../core/settings';
 import { accessibilityProps } from './MaterialCommunityIcon';
 import { withTheme } from '../core/theming';
-import { Theme } from '../types';
 
 type IconSourceBase = string | ImageSourcePropType;
 
@@ -28,7 +27,7 @@ type Props = IconProps & {
   /**
    * @optional
    */
-  theme: Theme;
+  theme: ReactNativePaper.Theme;
 };
 
 const isImageSource = (source: any) =>
@@ -59,7 +58,9 @@ const getIconId = (source: any) => {
 };
 
 export const isValidIcon = (source: any) =>
-  typeof source === 'string' || isImageSource(source);
+  typeof source === 'string' ||
+  typeof source === 'function' ||
+  isImageSource(source);
 
 export const isEqualIcon = (a: any, b: any) =>
   a === b || getIconId(a) === getIconId(b);

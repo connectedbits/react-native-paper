@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import setColor from 'color';
 import { withTheme } from '../core/theming';
-import { Theme } from '../types';
 
 const version = NativeModules.PlatformConstants
   ? NativeModules.PlatformConstants.reactNativeVersion
@@ -36,7 +35,7 @@ type Props = React.ComponentPropsWithRef<typeof NativeSwitch> & {
   /**
    * @optional
    */
-  theme: Theme;
+  theme: ReactNativePaper.Theme;
 };
 
 /**
@@ -66,23 +65,15 @@ type Props = React.ComponentPropsWithRef<typeof NativeSwitch> & {
  * import * as React from 'react';
  * import { Switch } from 'react-native-paper';
  *
- * export default class MyComponent extends React.Component {
- *   state = {
- *     isSwitchOn: false,
- *   };
+ * const MyComponent = () => {
+ *   const [isSwitchOn, setIsSwitchOn] = React.useState(false);
  *
- *   _onToggleSwitch = () => this.setState(state => ({ isSwitchOn: !state.isSwitchOn }));
+ *   const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
  *
- *   render() {
- *     const { isSwitchOn } = this.state;
- *     return (
- *       <Switch
- *         value={isSwitchOn}
- *         onValueChange={this._onToggleSwitch}
- *       />
- *     );
- *   }
- * }
+ *   return <Switch value={isSwitchOn} onValueChange={onToggleSwitch} />;
+ * };
+ *
+ * export default MyComponent;
  * ```
  */
 class Switch extends React.Component<Props> {
@@ -103,18 +94,9 @@ class Switch extends React.Component<Props> {
         ? checkedColor
         : disabled
         ? theme.dark
-          ? setColor(white)
-              .alpha(0.1)
-              .rgb()
-              .string()
-          : setColor(black)
-              .alpha(0.12)
-              .rgb()
-              .string()
-        : setColor(checkedColor)
-            .alpha(0.5)
-            .rgb()
-            .string();
+          ? setColor(white).alpha(0.1).rgb().string()
+          : setColor(black).alpha(0.12).rgb().string()
+        : setColor(checkedColor).alpha(0.5).rgb().string();
 
     const thumbTintColor =
       Platform.OS === 'ios'

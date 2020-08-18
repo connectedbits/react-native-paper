@@ -9,7 +9,6 @@ import {
   ViewStyle,
 } from 'react-native';
 import { withTheme } from '../core/theming';
-import { Theme } from '../types';
 
 type Props = React.ComponentPropsWithRef<typeof View> & {
   /**
@@ -32,7 +31,7 @@ type Props = React.ComponentPropsWithRef<typeof View> & {
   /**
    * @optional
    */
-  theme: Theme;
+  theme: ReactNativePaper.Theme;
 };
 
 type State = {
@@ -183,8 +182,11 @@ class ActivityIndicator extends React.Component<Props, State> {
 
     return (
       <View style={[styles.container, style]} {...rest}>
-        <Animated.View style={[{ width: size, height: size, opacity: fade }]}>
-          {[0, 1].map(index => {
+        <Animated.View
+          style={[{ width: size, height: size, opacity: fade }]}
+          collapsable={false}
+        >
+          {[0, 1].map((index) => {
             // Thanks to https://github.com/n4kz/react-native-indicators for the great work
             const inputRange = Array.from(
               new Array(frames),
@@ -202,8 +204,9 @@ class ActivityIndicator extends React.Component<Props, State> {
 
                 const direction = index ? -1 : +1;
 
-                return `${direction * (180 - 30) * easing(progress) +
-                  rotation}deg`;
+                return `${
+                  direction * (180 - 30) * easing(progress) + rotation
+                }deg`;
               }
             );
 

@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { View, StyleSheet, ImageBackground } from 'react-native';
-import { ToggleButton, List, useTheme } from 'react-native-paper';
+import { ImageBackground, StyleSheet, View } from 'react-native';
+import { List, ToggleButton, useTheme } from 'react-native-paper';
 
 type StatusState = 'checked' | 'unchecked';
 
@@ -21,7 +21,7 @@ const ToggleButtonExample = () => {
             icon="android"
             value="android"
             status={status}
-            onPress={status =>
+            onPress={(status) =>
               setStatus(status === 'checked' ? 'unchecked' : 'checked')
             }
           />

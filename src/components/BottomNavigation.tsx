@@ -1,29 +1,28 @@
 /* eslint-disable react/no-multi-comp */
 
+import color from 'color';
 import * as React from 'react';
 import {
-  View,
   Animated,
+  Keyboard,
+  LayoutChangeEvent,
+  Platform,
+  StyleProp,
+  StyleSheet,
   TouchableWithoutFeedback,
   TouchableWithoutFeedbackProps,
-  StyleSheet,
-  StyleProp,
-  Platform,
-  Keyboard,
+  View,
   ViewStyle,
-  LayoutChangeEvent,
 } from 'react-native';
 import SafeAreaView from 'react-native-safe-area-view';
-import color from 'color';
+import { withTheme } from '../core/theming';
+import { black, white } from '../styles/colors';
 import overlay from '../styles/overlay';
+import Badge from './Badge';
 import Icon, { IconSource } from './Icon';
 import Surface from './Surface';
-import Badge from './Badge';
 import TouchableRipple from './TouchableRipple';
 import Text from './Typography/Text';
-import { black, white } from '../styles/colors';
-import { withTheme } from '../core/theming';
-import { Theme } from '../types';
 
 type Route = {
   key: string;
@@ -219,7 +218,7 @@ type Props = {
   /**
    * @optional
    */
-  theme: Theme;
+  theme: ReactNativePaper.Theme;
 };
 
 type State = {
@@ -334,34 +333,30 @@ class SceneComponent extends React.PureComponent<any> {
  *
  * const RecentsRoute = () => <Text>Recents</Text>;
  *
- * export default class MyComponent extends React.Component {
- *   state = {
- *     index: 0,
- *     routes: [
- *       { key: 'music', title: 'Music', icon: 'queue-music' },
- *       { key: 'albums', title: 'Albums', icon: 'album' },
- *       { key: 'recents', title: 'Recents', icon: 'history' },
- *     ],
- *   };
+ * const MyComponent = () => {
+ *   const [index, setIndex] = React.useState(0);
+ *   const [routes] = React.useState([
+ *     { key: 'music', title: 'Music', icon: 'queue-music' },
+ *     { key: 'albums', title: 'Albums', icon: 'album' },
+ *     { key: 'recents', title: 'Recents', icon: 'history' },
+ *   ]);
  *
- *   _handleIndexChange = index => this.setState({ index });
- *
- *   _renderScene = BottomNavigation.SceneMap({
+ *   const renderScene = BottomNavigation.SceneMap({
  *     music: MusicRoute,
  *     albums: AlbumsRoute,
  *     recents: RecentsRoute,
  *   });
  *
- *   render() {
- *     return (
- *       <BottomNavigation
- *         navigationState={this.state}
- *         onIndexChange={this._handleIndexChange}
- *         renderScene={this._renderScene}
- *       />
- *     );
- *   }
- * }
+ *   return (
+ *     <BottomNavigation
+ *       navigationState={{ index, routes }}
+ *       onIndexChange={setIndex}
+ *       renderScene={renderScene}
+ *     />
+ *   );
+ * };
+ *
+ * export default MyComponent;
  * ```
  */
 class BottomNavigation extends React.Component<Props, State> {
@@ -395,6 +390,7 @@ class BottomNavigation extends React.Component<Props, State> {
   static defaultProps = {
     labeled: true,
     keyboardHidesNavigationBar: true,
+    sceneAnimationEnabled: false,
   };
 
   static getDerivedStateFromProps(nextProps: any, prevState: State) {
@@ -607,7 +603,7 @@ class BottomNavigation extends React.Component<Props, State> {
 
   private jumpTo = (key: string) => {
     const index = this.props.navigationState.routes.findIndex(
-      route => route.key === key
+      (route) => route.key === key
     );
 
     this.props.onIndexChange(index);
@@ -670,7 +666,7 @@ class BottomNavigation extends React.Component<Props, State> {
           inputRange: routes.map((_, i) => i),
           //@ts-ignore
           outputRange: routes.map(
-            route => getColor({ route }) || approxBackgroundColor
+            (route) => getColor({ route }) || approxBackgroundColor
           ),
         })
       : approxBackgroundColor;
@@ -683,10 +679,7 @@ class BottomNavigation extends React.Component<Props, State> {
     const inactiveTintColor =
       typeof inactiveColor !== 'undefined'
         ? inactiveColor
-        : color(textColor)
-            .alpha(0.5)
-            .rgb()
-            .string();
+        : color(textColor).alpha(0.5).rgb().string();
 
     const touchColor = color(activeColor || activeTintColor)
       .alpha(0.12)
@@ -711,8 +704,11 @@ class BottomNavigation extends React.Component<Props, State> {
             }
             const focused = navigationState.index === index;
 
-            const opacity =
-              sceneAnimationEnabled !== false ? tabs[index] : focused ? 1 : 0;
+            const opacity = sceneAnimationEnabled
+              ? tabs[index]
+              : focused
+              ? 1
+              : 0;
 
             const top = offsets[index].interpolate({
               inputRange: [0, 1],
@@ -865,7 +861,7 @@ class BottomNavigation extends React.Component<Props, State> {
                     : 'button',
                   accessibilityComponentType: 'button',
                   accessibilityRole: 'button',
-                  accessibilityStates: ['selected'],
+                  accessibilityState: { selected: true },
                   style: styles.item,
                   children: (
                     <View pointerEvents="none">

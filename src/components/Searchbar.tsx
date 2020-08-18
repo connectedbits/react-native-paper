@@ -12,8 +12,7 @@ import color from 'color';
 import IconButton from './IconButton';
 import Surface from './Surface';
 import { withTheme } from '../core/theming';
-import { Theme } from '../types';
-import { IconSource } from './Icon';
+import type { IconSource } from './Icon';
 import MaterialCommunityIcon from './MaterialCommunityIcon';
 
 type Props = React.ComponentPropsWithRef<typeof TextInput> & {
@@ -54,7 +53,7 @@ type Props = React.ComponentPropsWithRef<typeof TextInput> & {
   /**
    * @optional
    */
-  theme: Theme;
+  theme: ReactNativePaper.Theme;
   /**
    * Custom color for icon, default will be derived from theme
    */
@@ -77,24 +76,22 @@ type Props = React.ComponentPropsWithRef<typeof TextInput> & {
  * import * as React from 'react';
  * import { Searchbar } from 'react-native-paper';
  *
- * export default class MyComponent extends React.Component {
- *   state = {
- *     searchQuery: '',
- *   };
+ * const MyComponent = () => {
+ *   const [searchQuery, setSearchQuery] = React.useState('');
  *
- *   _onChangeSearch = query => this.setState({ searchQuery: query });
+ *   const onChangeSearch = query => setSearchQuery(query);
  *
- *   render() {
- *     const { searchQuery } = this.state;
- *     return (
- *       <Searchbar
- *         placeholder="Search"
- *         onChangeText={this._onChangeSearch}
- *         value={searchQuery}
- *       />
- *     );
- *   }
- * }
+ *   return (
+ *     <Searchbar
+ *       placeholder="Search"
+ *       onChangeText={onChangeSearch}
+ *       value={searchQuery}
+ *     />
+ *   );
+ * };
+ *
+ * export default MyComponent;
+
  * ```
  */
 class Searchbar extends React.Component<Props> {
@@ -163,16 +160,8 @@ class Searchbar extends React.Component<Props> {
     const font = fonts.regular;
     const iconColor =
       customIconColor ||
-      (dark
-        ? textColor
-        : color(textColor)
-            .alpha(0.54)
-            .rgb()
-            .string());
-    const rippleColor = color(textColor)
-      .alpha(0.32)
-      .rgb()
-      .string();
+      (dark ? textColor : color(textColor).alpha(0.54).rgb().string());
+    const rippleColor = color(textColor).alpha(0.32).rgb().string();
 
     return (
       <Surface
@@ -213,7 +202,7 @@ class Searchbar extends React.Component<Props> {
           keyboardAppearance={dark ? 'dark' : 'light'}
           accessibilityTraits="search"
           accessibilityRole="search"
-          ref={c => {
+          ref={(c) => {
             this.root = c;
           }}
           value={value}

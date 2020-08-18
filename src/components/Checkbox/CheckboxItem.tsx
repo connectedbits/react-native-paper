@@ -1,5 +1,4 @@
 import * as React from 'react';
-
 import {
   StyleProp,
   StyleSheet,
@@ -7,12 +6,10 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-
-import CheckBox from './Checkbox';
-import Text from '../Typography/Text';
-import { Theme } from '../../types';
-import TouchableRipple from '../TouchableRipple';
 import { withTheme } from '../../core/theming';
+import TouchableRipple from '../TouchableRipple';
+import Text from '../Typography/Text';
+import CheckBox from './Checkbox';
 
 type Props = {
   /**
@@ -50,7 +47,7 @@ type Props = {
   /**
    * @optional
    */
-  theme: Theme;
+  theme: ReactNativePaper.Theme;
 };
 
 /**
@@ -60,18 +57,15 @@ type Props = {
  * ```js
  * import * as React from 'react';
  * import { View } from 'react-native';
- * import { Checkbox, Text } from 'react-native-paper';
+ * import { Checkbox } from 'react-native-paper';
  *
- * export default class MyComponent extends React.Component {
+ * const MyComponent = () => (
+ *   <View>
+ *     <Checkbox.Item label="Item" status="checked" />
+ *   </View>
+ * );
  *
- *   render() {
- *     return(
- *       <View>
- *           <Checkbox.Item label="Item" status="checked" />
- *       </View>
- *     )
- *   }
- * }
+ * export default MyComponent;
  *```
  */
 

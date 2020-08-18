@@ -1,12 +1,12 @@
 import * as React from 'react';
 import {
-  View,
-  StyleSheet,
-  Image,
-  ScrollView,
-  SafeAreaView,
   Dimensions,
+  Image,
   Platform,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  View,
 } from 'react-native';
 import { Banner, FAB, useTheme } from 'react-native-paper';
 
@@ -41,7 +41,7 @@ const BannerExample = () => {
           on mobile.
         </Banner>
         <View style={styles.grid}>
-          {PHOTOS.map(uri => (
+          {PHOTOS.map((uri) => (
             <View key={uri} style={styles.item}>
               <Image source={{ uri }} style={styles.photo} />
             </View>

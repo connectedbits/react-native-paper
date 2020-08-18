@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { ScrollView, StyleSheet, Image, View } from 'react-native';
-import { List, Text, Chip, Divider, useTheme } from 'react-native-paper';
+import { Image, ScrollView, StyleSheet, View } from 'react-native';
+import { Chip, Divider, List, Text, useTheme } from 'react-native-paper';
 
 const ListSectionExample = () => {
   const {
@@ -12,17 +12,17 @@ const ListSectionExample = () => {
       <List.Section>
         <List.Subheader>Single line</List.Subheader>
         <List.Item
-          left={props => <List.Icon {...props} icon="calendar" />}
+          left={(props) => <List.Icon {...props} icon="calendar" />}
           title="List item 1"
         />
         <List.Item
-          left={props => <List.Icon {...props} icon="wallet-giftcard" />}
+          left={(props) => <List.Icon {...props} icon="wallet-giftcard" />}
           title="List item 2"
         />
         <List.Item
           title="List item 3"
-          left={props => <List.Icon {...props} icon="folder" />}
-          right={props => <List.Icon {...props} icon="equal" />}
+          left={(props) => <List.Icon {...props} icon="folder" />}
+          right={(props) => <List.Icon {...props} icon="equal" />}
         />
       </List.Section>
       <Divider />
@@ -45,7 +45,7 @@ const ListSectionExample = () => {
               style={styles.image}
             />
           )}
-          right={props => <List.Icon {...props} icon="information" />}
+          right={(props) => <List.Icon {...props} icon="information" />}
           title="List item 2"
           description="Describes item 2"
         />
@@ -70,7 +70,7 @@ const ListSectionExample = () => {
               style={styles.image}
             />
           )}
-          right={props => <List.Icon {...props} icon="star-outline" />}
+          right={(props) => <List.Icon {...props} icon="star-outline" />}
           title="List item 2"
           description="Describes item 2. Example of a very very long description."
         />
@@ -85,7 +85,7 @@ const ListSectionExample = () => {
               style={styles.image}
             />
           )}
-          right={props => <List.Icon {...props} icon="star-outline" />}
+          right={(props) => <List.Icon {...props} icon="star-outline" />}
           title="List Item 1"
           description={({
             ellipsizeMode,
