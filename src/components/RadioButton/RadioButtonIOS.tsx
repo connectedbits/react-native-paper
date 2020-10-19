@@ -4,7 +4,7 @@ import color from 'color';
 import { RadioButtonContext, RadioButtonContextType } from './RadioButtonGroup';
 import { handlePress, isChecked } from './utils';
 import MaterialCommunityIcon from '../MaterialCommunityIcon';
-import TouchableRipple from '../TouchableRipple';
+import TouchableRipple from '../TouchableRipple/TouchableRipple';
 import { withTheme } from '../../core/theming';
 import type { $RemoveChildren } from '../../types';
 
@@ -37,7 +37,8 @@ type Props = $RemoveChildren<typeof TouchableRipple> & {
 
 /**
  * Radio buttons allow the selection a single option from a set.
- * This component follows platform guidelines for iOS.
+ * This component follows platform guidelines for iOS, but can be used
+ * on any platform.
  *
  * <div class="screenshots">
  *   <figure>
@@ -50,75 +51,78 @@ type Props = $RemoveChildren<typeof TouchableRipple> & {
  *   </figure>
  * </div>
  */
-class RadioButtonIOS extends React.Component<Props> {
-  static displayName = 'RadioButton.IOS';
+const RadioButtonIOS = ({
+  disabled,
+  onPress,
+  theme,
+  status,
+  value,
+  ...rest
+}: Props) => {
+  const checkedColor = disabled
+    ? theme.colors.disabled
+    : rest.color || theme.colors.accent;
 
-  render() {
-    const { disabled, onPress, theme, status, value, ...rest } = this.props;
+  let rippleColor: string;
 
-    const checkedColor = disabled
-      ? theme.colors.disabled
-      : this.props.color || theme.colors.accent;
-
-    let rippleColor: string;
-
-    if (disabled) {
-      rippleColor = color(theme.colors.text).alpha(0.16).rgb().string();
-    } else {
-      rippleColor = color(checkedColor).fade(0.32).rgb().string();
-    }
-
-    return (
-      <RadioButtonContext.Consumer>
-        {(context?: RadioButtonContextType) => {
-          const checked =
-            isChecked({
-              contextValue: context?.value,
-              status,
-              value,
-            }) === 'checked';
-
-          return (
-            <TouchableRipple
-              {...rest}
-              borderless
-              rippleColor={rippleColor}
-              onPress={
-                disabled
-                  ? undefined
-                  : () => {
-                      handlePress({
-                        onPress,
-                        value,
-                        onValueChange: context?.onValueChange,
-                      });
-                    }
-              }
-              accessibilityTraits={disabled ? ['button', 'disabled'] : 'button'}
-              accessibilityComponentType={
-                checked ? 'radiobutton_checked' : 'radiobutton_unchecked'
-              }
-              accessibilityRole="button"
-              accessibilityState={{ disabled }}
-              accessibilityLiveRegion="polite"
-              style={styles.container}
-            >
-              <View style={{ opacity: checked ? 1 : 0 }}>
-                <MaterialCommunityIcon
-                  allowFontScaling={false}
-                  name="check"
-                  size={24}
-                  color={checkedColor}
-                  direction="ltr"
-                />
-              </View>
-            </TouchableRipple>
-          );
-        }}
-      </RadioButtonContext.Consumer>
-    );
+  if (disabled) {
+    rippleColor = color(theme.colors.text).alpha(0.16).rgb().string();
+  } else {
+    rippleColor = color(checkedColor).fade(0.32).rgb().string();
   }
-}
+
+  return (
+    <RadioButtonContext.Consumer>
+      {(context?: RadioButtonContextType) => {
+        const checked =
+          isChecked({
+            contextValue: context?.value,
+            status,
+            value,
+          }) === 'checked';
+
+        return (
+          <TouchableRipple
+            {...rest}
+            borderless
+            rippleColor={rippleColor}
+            onPress={
+              disabled
+                ? undefined
+                : () => {
+                    handlePress({
+                      onPress,
+                      value,
+                      onValueChange: context?.onValueChange,
+                    });
+                  }
+            }
+            accessibilityTraits={disabled ? ['button', 'disabled'] : 'button'}
+            accessibilityComponentType={
+              checked ? 'radiobutton_checked' : 'radiobutton_unchecked'
+            }
+            accessibilityRole="button"
+            accessibilityState={{ disabled }}
+            accessibilityLiveRegion="polite"
+            style={styles.container}
+          >
+            <View style={{ opacity: checked ? 1 : 0 }}>
+              <MaterialCommunityIcon
+                allowFontScaling={false}
+                name="check"
+                size={24}
+                color={checkedColor}
+                direction="ltr"
+              />
+            </View>
+          </TouchableRipple>
+        );
+      }}
+    </RadioButtonContext.Consumer>
+  );
+};
+
+RadioButtonIOS.displayName = 'RadioButton.IOS';
 
 const styles = StyleSheet.create({
   container: {

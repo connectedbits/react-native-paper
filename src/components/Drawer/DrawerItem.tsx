@@ -3,7 +3,7 @@ import * as React from 'react';
 import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 import { withTheme } from '../../core/theming';
 import Icon, { IconSource } from '../Icon';
-import TouchableRipple from '../TouchableRipple';
+import TouchableRipple from '../TouchableRipple/TouchableRipple';
 import Text from '../Typography/Text';
 
 type Props = React.ComponentPropsWithRef<typeof View> & {
@@ -63,80 +63,75 @@ type Props = React.ComponentPropsWithRef<typeof View> & {
  * export default MyComponent;
  * ```
  */
-class DrawerItem extends React.Component<Props> {
-  static displayName = 'Drawer.Item';
-
-  render() {
-    const {
-      icon,
-      label,
-      active,
-      theme,
-      style,
-      onPress,
-      numberOfLines,
-      accessibilityLabel,
-      ...rest
-    } = this.props;
-    const { colors, roundness } = theme;
-    const backgroundColor = active
-      ? color(colors.primary).alpha(0.12).rgb().string()
-      : 'transparent';
-    const contentColor = active
-      ? colors.primary
-      : color(colors.text).alpha(0.68).rgb().string();
-    const font = theme.fonts.medium;
-    const labelMargin = icon ? 32 : 0;
-    const numLines = typeof numberOfLines === 'undefined' ? 1 : numberOfLines;
-    let labelElement = label;
-    if (typeof label === 'string') {
-      labelElement = (
-        <Text
-          numberOfLines={numLines}
-          style={[
-            styles.label,
-            {
-              color: contentColor,
-              ...font,
-              marginLeft: labelMargin,
-            },
-          ]}
-        >
-          {label}
-        </Text>
-      );
-    }
-    return (
-      <View
-        {...rest}
+const DrawerItem = ({
+  icon,
+  label,
+  active,
+  theme,
+  style,
+  onPress,
+  numberOfLines,
+  accessibilityLabel,
+  ...rest
+}: Props) => {
+  const { colors, roundness } = theme;
+  const backgroundColor = active
+    ? color(colors.primary).alpha(0.12).rgb().string()
+    : 'transparent';
+  const contentColor = active
+    ? colors.primary
+    : color(colors.text).alpha(0.68).rgb().string();
+  const font = theme.fonts.medium;
+  const labelMargin = icon ? 32 : 0;
+  const numLines = typeof numberOfLines === 'undefined' ? 1 : numberOfLines;
+  let labelElement = label;
+  if (typeof label === 'string') {
+    labelElement = (
+      <Text
+        numberOfLines={numLines}
         style={[
-          styles.container,
-          { backgroundColor, borderRadius: roundness },
-          style,
+          styles.label,
+          {
+            color: contentColor,
+            ...font,
+            marginLeft: labelMargin,
+          },
         ]}
       >
-        <TouchableRipple
-          borderless
-          delayPressIn={0}
-          onPress={onPress}
-          style={{ borderRadius: roundness }}
-          accessibilityTraits={active ? ['button', 'selected'] : 'button'}
-          accessibilityComponentType="button"
-          accessibilityRole="button"
-          accessibilityState={{ selected: active }}
-          accessibilityLabel={accessibilityLabel}
-        >
-          <View style={styles.wrapper}>
-            {icon ? (
-              <Icon source={icon} size={24} color={contentColor} />
-            ) : null}
-            {labelElement}
-          </View>
-        </TouchableRipple>
-      </View>
+        {label}
+      </Text>
     );
   }
-}
+  return (
+    <View
+      {...rest}
+      style={[
+        styles.container,
+        { backgroundColor, borderRadius: roundness },
+        style,
+      ]}
+    >
+      <TouchableRipple
+        borderless
+        delayPressIn={0}
+        onPress={onPress}
+        style={{ borderRadius: roundness }}
+        accessibilityTraits={active ? ['button', 'selected'] : 'button'}
+        accessibilityComponentType="button"
+        accessibilityRole="button"
+        accessibilityState={{ selected: active }}
+        accessibilityLabel={accessibilityLabel}
+      >
+        <View style={styles.wrapper}>
+          {icon ? <Icon source={icon} size={24} color={contentColor} /> : null}
+          {labelElement}
+        </View>
+      </TouchableRipple>
+    </View>
+  );
+};
+
+DrawerItem.displayName = 'Drawer.Item';
 
 const styles = StyleSheet.create({
   container: {

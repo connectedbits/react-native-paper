@@ -62,57 +62,53 @@ type Props = React.ComponentPropsWithRef<typeof View> & {
  * export default MyComponent;
  * ```
  */
-class DrawerSection extends React.Component<Props> {
-  static displayName = 'Drawer.Section';
-
-  static titleElement(
-    title: Props['title'],
-    theme: Props['theme'],
-    numberOfLines: Props['numberOfLines']
-  ) {
-    const { colors, fonts } = theme;
-    const titleColor = color(colors.text).alpha(0.54).rgb().string();
-    const font = fonts.medium;
-    const numLines = typeof numberOfLines === 'undefined' ? 1 : numberOfLines;
-    return (
-      <View style={styles.titleContainer}>
-        <Text
-          numberOfLines={numLines}
-          style={{ color: titleColor, ...font, marginLeft: 16 }}
-        >
-          {title}
-        </Text>
-      </View>
-    );
-  }
-
-  render() {
-    const {
-      children,
-      title,
-      theme,
-      style,
-      numberOfLines,
-      ...rest
-    } = this.props;
-    let titleElement;
-    if (title) {
-      if (typeof title === 'string') {
-        titleElement = DrawerSection.titleElement(title, theme, numberOfLines);
-      } else {
-        titleElement = title;
-      }
+const DrawerSection = ({
+  children,
+  title,
+  theme,
+  style,
+  numberOfLines,
+  ...rest
+}: Props) => {
+  let titleElement;
+  if (title) {
+    if (typeof title === 'string') {
+      titleElement = DrawerSection.titleElement(title, theme, numberOfLines);
+    } else {
+      titleElement = title;
     }
-
-    return (
-      <View style={[styles.container, style]} {...rest}>
-        {titleElement}
-        {children}
-        <Divider style={styles.divider} />
-      </View>
-    );
   }
-}
+
+  return (
+    <View style={[styles.container, style]} {...rest}>
+      {titleElement}
+      {children}
+      <Divider style={styles.divider} />
+    </View>
+  );
+};
+
+DrawerSection.titleElement = (
+  title: Props['title'],
+  theme: Props['theme'],
+  numberOfLines: Props['numberOfLines']
+) => {
+  const { colors, fonts } = theme;
+  const titleColor = color(colors.text).alpha(0.54).rgb().string();
+  const font = fonts.medium;
+  const numLines = typeof numberOfLines === 'undefined' ? 1 : numberOfLines;
+  return (
+    <View style={styles.titleContainer}>
+      <Text
+        numberOfLines={numLines}
+        style={{ color: titleColor, ...font, marginLeft: 16 }}
+      >
+        {title}
+      </Text>
+    </View>
+  );
+};
+DrawerSection.displayName = 'Drawer.Section';
 
 const styles = StyleSheet.create({
   container: {
