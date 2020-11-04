@@ -81,82 +81,76 @@ type Props = $RemoveChildren<typeof View> & {
  * export default MyComponent;
  * ```
  */
-class AppbarContent extends React.Component<Props> {
-  static displayName = 'Appbar.Content';
-
-  render() {
-    const {
-      color: titleColor = white,
-      subtitle,
-      subtitleStyle,
-      onPress,
-      style,
-      titleRef,
-      titleStyle,
-      theme,
-      title,
-      allowTitleFontScaling,
-      allowSubtitleFontScaling,
-      ...rest
-    } = this.props;
-    const { fonts } = theme;
-
-    const subtitleColor = color(titleColor).alpha(0.7).rgb().string();
-
-    let titleElement: React.ReactNode | null = null;
-    let subtitleElement: React.ReactNode | null = null;
-    if (title) {
-      if (typeof title === 'string') {
-        titleElement = (
-          <Text
-            ref={titleRef}
-            style={[
-              {
-                color: titleColor,
-                ...(Platform.OS === 'ios' ? fonts.regular : fonts.medium),
-              },
-              styles.title,
-              titleStyle,
-            ]}
-            numberOfLines={1}
-            allowFontScaling={allowTitleFontScaling}
-            accessible
-            accessibilityTraits="header"
-            // @ts-ignore
-            accessibilityRole={Platform.OS === 'web' ? 'heading' : 'header'}
-          >
-            {title}
-          </Text>
-        );
-      } else {
-        titleElement = title;
-      }
+const AppbarContent = ({
+  color: titleColor = white,
+  subtitle,
+  subtitleStyle,
+  onPress,
+  style,
+  titleRef,
+  titleStyle,
+  theme,
+  title,
+  allowTitleFontScaling,
+  allowSubtitleFontScaling,
+  ...rest
+}: Props) => {
+  const { fonts } = theme;
+  const subtitleColor = color(titleColor).alpha(0.7).rgb().string();
+  let titleElement: React.ReactNode | null = null;
+  let subtitleElement: React.ReactNode | null = null;
+  if (title) {
+    if (typeof title === 'string') {
+      titleElement = (
+        <Text
+          ref={titleRef}
+          style={[
+            {
+              color: titleColor,
+              ...(Platform.OS === 'ios' ? fonts.regular : fonts.medium),
+            },
+            styles.title,
+            titleStyle,
+          ]}
+          numberOfLines={1}
+          allowFontScaling={allowTitleFontScaling}
+          accessible
+          accessibilityTraits="header"
+          // @ts-ignore
+          accessibilityRole={Platform.OS === 'web' ? 'heading' : 'header'}
+        >
+          {title}
+        </Text>
+      );
+    } else {
+      titleElement = title;
     }
-    if (subtitle) {
-      if (typeof subtitle === 'string') {
-        subtitleElement = (
-          <Text
-            style={[styles.subtitle, { color: subtitleColor }, subtitleStyle]}
-            numberOfLines={1}
-            allowFontScaling={allowSubtitleFontScaling}
-          >
-            {subtitle}
-          </Text>
-        );
-      } else {
-        subtitleElement = subtitle;
-      }
-    }
-    return (
-      <TouchableWithoutFeedback onPress={onPress} disabled={!onPress}>
-        <View style={[styles.container, style]} {...rest}>
-          {titleElement}
-          {subtitleElement}
-        </View>
-      </TouchableWithoutFeedback>
-    );
   }
-}
+  if (subtitle) {
+    if (typeof subtitle === 'string') {
+      subtitleElement = (
+        <Text
+          style={[styles.subtitle, { color: subtitleColor }, subtitleStyle]}
+          numberOfLines={1}
+          allowFontScaling={allowSubtitleFontScaling}
+        >
+          {subtitle}
+        </Text>
+      );
+    } else {
+      subtitleElement = subtitle;
+    }
+  }
+  return (
+    <TouchableWithoutFeedback onPress={onPress} disabled={!onPress}>
+      <View style={[styles.container, style]} {...rest}>
+        {titleElement}
+        {subtitleElement}
+      </View>
+    </TouchableWithoutFeedback>
+  );
+};
+AppbarContent.displayName = 'Appbar.Content';
 
 const styles = StyleSheet.create({
   container: {
