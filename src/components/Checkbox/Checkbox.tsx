@@ -1,10 +1,7 @@
 import * as React from 'react';
 import { Platform } from 'react-native';
 import { withTheme } from '../../core/theming';
-import CheckboxAndroid from './CheckboxAndroid';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import CheckboxIOS from './CheckboxIOS';
-import CheckboxItem from './CheckboxItem';
+import { CheckboxAndroid, CheckboxIOS, CheckboxItem } from './CheckboxElements';
 
 type Props = {
   /**
@@ -97,3 +94,8 @@ Checkbox.Android = CheckboxAndroid;
 Checkbox.IOS = CheckboxIOS;
 
 export default withTheme(Checkbox);
+
+// @component-docs ignore-next-line
+const CheckboxWithTheme = withTheme(Checkbox);
+// @component-docs ignore-next-line
+export { CheckboxWithTheme as Checkbox };

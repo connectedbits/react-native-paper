@@ -89,6 +89,7 @@ const DrawerItem = ({
     labelElement = (
       <Text
         numberOfLines={numLines}
+        selectable={false}
         style={[
           styles.label,
           {

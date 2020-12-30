@@ -49,6 +49,7 @@ exports[`renders expanded accordion 1`] = `
       >
         <Text
           numberOfLines={1}
+          selectable={false}
           style={
             Array [
               Object {
@@ -95,6 +96,7 @@ exports[`renders expanded accordion 1`] = `
               },
               Array [
                 Object {
+                  "lineHeight": 24,
                   "transform": Array [
                     Object {
                       "scaleX": 1,
@@ -164,6 +166,7 @@ exports[`renders expanded accordion 1`] = `
       >
         <Text
           numberOfLines={1}
+          selectable={false}
           style={
             Array [
               Object {
@@ -254,6 +257,7 @@ exports[`renders list accordion with children 1`] = `
               },
               Array [
                 Object {
+                  "lineHeight": 24,
                   "transform": Array [
                     Object {
                       "scaleX": 1,
@@ -291,6 +295,7 @@ exports[`renders list accordion with children 1`] = `
       >
         <Text
           numberOfLines={1}
+          selectable={false}
           style={
             Array [
               Object {
@@ -337,6 +342,7 @@ exports[`renders list accordion with children 1`] = `
               },
               Array [
                 Object {
+                  "lineHeight": 24,
                   "transform": Array [
                     Object {
                       "scaleX": 1,
@@ -413,6 +419,7 @@ exports[`renders list accordion with custom title and description styles 1`] = `
       >
         <Text
           numberOfLines={1}
+          selectable={false}
           style={
             Array [
               Object {
@@ -439,6 +446,7 @@ exports[`renders list accordion with custom title and description styles 1`] = `
         </Text>
         <Text
           numberOfLines={2}
+          selectable={false}
           style={
             Array [
               Object {
@@ -491,6 +499,7 @@ exports[`renders list accordion with custom title and description styles 1`] = `
               },
               Array [
                 Object {
+                  "lineHeight": 24,
                   "transform": Array [
                     Object {
                       "scaleX": 1,
@@ -580,6 +589,7 @@ exports[`renders list accordion with left items 1`] = `
               },
               Array [
                 Object {
+                  "lineHeight": 24,
                   "transform": Array [
                     Object {
                       "scaleX": 1,
@@ -617,6 +627,7 @@ exports[`renders list accordion with left items 1`] = `
       >
         <Text
           numberOfLines={1}
+          selectable={false}
           style={
             Array [
               Object {
@@ -663,6 +674,7 @@ exports[`renders list accordion with left items 1`] = `
               },
               Array [
                 Object {
+                  "lineHeight": 24,
                   "transform": Array [
                     Object {
                       "scaleX": 1,
@@ -739,6 +751,7 @@ exports[`renders multiline list accordion 1`] = `
       >
         <Text
           numberOfLines={1}
+          selectable={false}
           style={
             Array [
               Object {
@@ -763,6 +776,7 @@ exports[`renders multiline list accordion 1`] = `
         </Text>
         <Text
           numberOfLines={2}
+          selectable={false}
           style={
             Array [
               Object {
@@ -813,6 +827,7 @@ exports[`renders multiline list accordion 1`] = `
               },
               Array [
                 Object {
+                  "lineHeight": 24,
                   "transform": Array [
                     Object {
                       "scaleX": 1,
