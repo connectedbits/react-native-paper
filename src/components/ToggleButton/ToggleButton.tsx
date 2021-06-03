@@ -11,7 +11,6 @@ import IconButton from '../IconButton';
 import { ToggleButtonGroupContext } from './ToggleButtonGroup';
 import { black, white } from '../../styles/colors';
 import type { IconSource } from '../Icon';
-import { ToggleButtonRow, ToggleButtonGroup } from './ToggleButtonElements';
 
 type Props = {
   /**
@@ -103,7 +102,7 @@ const ToggleButton = ({
 
   return (
     <ToggleButtonGroupContext.Consumer>
-      {(context: { value: string; onValueChange: Function } | null) => {
+      {(context: { value: string | null; onValueChange: Function } | null) => {
         let backgroundColor;
 
         const checked: boolean | null =
@@ -153,12 +152,6 @@ const ToggleButton = ({
     </ToggleButtonGroupContext.Consumer>
   );
 };
-
-// @component ./ToggleButtonGroup.tsx
-ToggleButton.Group = ToggleButtonGroup;
-
-// @component ./ToggleButtonRow.tsx
-ToggleButton.Row = ToggleButtonRow;
 
 const styles = StyleSheet.create({
   content: {

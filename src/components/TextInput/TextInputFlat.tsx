@@ -1,43 +1,39 @@
+import color from 'color';
 import * as React from 'react';
 import {
-  View,
   Animated,
-  TextInput as NativeTextInput,
-  StyleSheet,
   I18nManager,
   Platform,
+  StyleSheet,
+  TextInput as NativeTextInput,
   TextStyle,
+  View,
 } from 'react-native';
-import color from 'color';
-import InputLabel from './Label/InputLabel';
+import { AdornmentSide, AdornmentType, InputMode } from './Adornment/enums';
 import TextInputAdornment, {
-  TextInputAdornmentProps,
-} from './Adornment/TextInputAdornment';
-import type { RenderProps, ChildTextInputProps } from './types';
-
-import {
-  MAXIMIZED_LABEL_FONT_SIZE,
-  MINIMIZED_LABEL_FONT_SIZE,
-  LABEL_WIGGLE_X_OFFSET,
-  ADORNMENT_SIZE,
-  FLAT_INPUT_OFFSET,
-} from './constants';
-
-import {
-  calculateLabelTopPosition,
-  calculateInputHeight,
-  calculatePadding,
-  adjustPaddingFlat,
-  Padding,
-  interpolatePlaceholder,
-  calculateFlatAffixTopPosition,
-  calculateFlatInputHorizontalPadding,
-} from './helpers';
-import {
   getAdornmentConfig,
   getAdornmentStyleAdjustmentForNativeInput,
+  TextInputAdornmentProps,
 } from './Adornment/TextInputAdornment';
-import { AdornmentSide, AdornmentType, InputMode } from './Adornment/enums';
+import {
+  ADORNMENT_SIZE,
+  FLAT_INPUT_OFFSET,
+  LABEL_WIGGLE_X_OFFSET,
+  MAXIMIZED_LABEL_FONT_SIZE,
+  MINIMIZED_LABEL_FONT_SIZE,
+} from './constants';
+import {
+  adjustPaddingFlat,
+  calculateFlatAffixTopPosition,
+  calculateFlatInputHorizontalPadding,
+  calculateInputHeight,
+  calculateLabelTopPosition,
+  calculatePadding,
+  interpolatePlaceholder,
+  Padding,
+} from './helpers';
+import InputLabel from './Label/InputLabel';
+import type { ChildTextInputProps, RenderProps } from './types';
 
 const MINIMIZED_LABEL_Y_OFFSET = -18;
 
@@ -125,16 +121,15 @@ class TextInputFlat extends React.Component<ChildTextInputProps> {
       ? leftLayout.width || ADORNMENT_SIZE
       : ADORNMENT_SIZE;
 
-    const adornmentStyleAdjustmentForNativeInput = getAdornmentStyleAdjustmentForNativeInput(
-      {
+    const adornmentStyleAdjustmentForNativeInput =
+      getAdornmentStyleAdjustmentForNativeInput({
         adornmentConfig,
         rightAffixWidth,
         leftAffixWidth,
         paddingHorizontal,
         inputOffset: FLAT_INPUT_OFFSET,
         mode: InputMode.Flat,
-      }
-    );
+      });
 
     let inputTextColor,
       activeColor,
@@ -318,22 +313,22 @@ class TextInputFlat extends React.Component<ChildTextInputProps> {
           activeColor={activeColor}
         />
         <View
-          style={{
-            paddingTop: 0,
-            paddingBottom: 0,
-            minHeight,
-          }}
+          style={[
+            styles.labelContainer,
+            {
+              minHeight,
+            },
+          ]}
         >
           <InputLabel parentState={parentState} labelProps={labelProps} />
           {render?.({
             ...rest,
             ref: innerRef,
             onChangeText,
-            // @ts-ignore
             placeholder: label
               ? parentState.placeholder
               : this.props.placeholder,
-            placeholderTextColor: placeholderTextColor || placeholderColor,
+            placeholderTextColor: placeholderTextColor ?? placeholderColor,
             editable: !disabled && editable,
             selectionColor:
               typeof selectionColor === 'undefined'
@@ -360,6 +355,7 @@ class TextInputFlat extends React.Component<ChildTextInputProps> {
                   ? 'right'
                   : 'left',
               },
+              Platform.OS === 'web' && { outline: 'none' },
               adornmentStyleAdjustmentForNativeInput,
             ],
           })}
@@ -420,6 +416,10 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     height: 2,
+  },
+  labelContainer: {
+    paddingTop: 0,
+    paddingBottom: 0,
   },
   input: {
     flexGrow: 1,

@@ -1,14 +1,9 @@
 import * as React from 'react';
-import {
-  KeyboardAvoidingView,
-  Platform,
-  ScrollView,
-  StyleSheet,
-  View,
-} from 'react-native';
+import { KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
 import { HelperText, TextInput, useTheme } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { inputReducer, State } from '../../utils';
+import ScreenWrapper from '../ScreenWrapper';
 
 const MAX_LENGTH = 20;
 
@@ -95,10 +90,10 @@ const TextInputExample = () => {
   const _isUsernameValid = (name: string) => /^[a-zA-Z]*$/.test(name);
 
   const {
-    colors: { background, accent },
+    colors: { accent, primary },
   } = useTheme();
 
-  const inputActionHandler = (type: string, payload: string) =>
+  const inputActionHandler = (type: keyof State, payload: string) =>
     dispatch({
       type: type,
       payload: payload,
@@ -120,8 +115,8 @@ const TextInputExample = () => {
 
   return (
     <TextInputAvoidingView>
-      <ScrollView
-        style={[styles.container, { backgroundColor: background }]}
+      <ScreenWrapper
+        style={styles.container}
         keyboardShouldPersistTaps={'always'}
         removeClippedSubviews={false}
       >
@@ -215,6 +210,12 @@ const TextInputExample = () => {
             inputActionHandler('flatDenseText', flatDenseText)
           }
           left={<TextInput.Affix text="#" />}
+          right={
+            <TextInput.Icon
+              name="chevron-up"
+              color={(focused) => (focused ? primary : undefined)}
+            />
+          }
         />
         <TextInput
           style={styles.inputContainerStyle}
@@ -434,7 +435,7 @@ const TextInputExample = () => {
             }}
           />
         </View>
-      </ScrollView>
+      </ScreenWrapper>
     </TextInputAvoidingView>
   );
 };
@@ -443,7 +444,6 @@ TextInputExample.title = 'TextInput';
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     padding: 8,
   },
   helpersWrapper: {

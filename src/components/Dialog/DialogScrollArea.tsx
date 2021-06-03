@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, ViewStyle, StyleSheet, StyleProp } from 'react-native';
+import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 
 type Props = React.ComponentPropsWithRef<typeof View> & {
   /**

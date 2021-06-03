@@ -4,16 +4,15 @@ import {
   SafeAreaView,
   StyleProp,
   StyleSheet,
-  ViewStyle,
   View,
+  ViewStyle,
 } from 'react-native';
-
+import { withTheme } from '../core/theming';
 import Button from './Button';
 import Surface from './Surface';
 import Text from './Typography/Text';
-import { withTheme } from '../core/theming';
 
-type Props = React.ComponentProps<typeof Surface> & {
+export type SnackbarProps = React.ComponentProps<typeof Surface> & {
   /**
    * Whether the Snackbar is currently visible.
    */
@@ -23,10 +22,8 @@ type Props = React.ComponentProps<typeof Surface> & {
    * - `label` - Label of the action button
    * - `onPress` - Callback that is called when action button is pressed.
    */
-  action?: {
+  action?: Omit<React.ComponentProps<typeof Button>, 'children'> & {
     label: string;
-    accessibilityLabel?: string;
-    onPress: () => void;
   };
   /**
    * The duration for which the Snackbar is shown.
@@ -114,7 +111,7 @@ const Snackbar = ({
   style,
   theme,
   ...rest
-}: Props) => {
+}: SnackbarProps) => {
   const { current: opacity } = React.useRef<Animated.Value>(
     new Animated.Value(0.0)
   );
@@ -146,7 +143,10 @@ const Snackbar = ({
             duration === Number.NEGATIVE_INFINITY;
 
           if (finished && !isInfinity) {
-            hideTimeout.current = setTimeout(onDismiss, duration);
+            hideTimeout.current = setTimeout(
+              onDismiss,
+              duration
+            ) as unknown as NodeJS.Timeout;
           }
         }
       });
@@ -167,6 +167,13 @@ const Snackbar = ({
   const { colors, roundness } = theme;
 
   if (hidden) return null;
+
+  const {
+    style: actionStyle,
+    label: actionLabel,
+    onPress: onPressAction,
+    ...actionProps
+  } = action || {};
 
   return (
     <SafeAreaView
@@ -209,17 +216,17 @@ const Snackbar = ({
         </Text>
         {action ? (
           <Button
-            accessibilityLabel={action.accessibilityLabel}
             onPress={() => {
-              action.onPress();
+              onPressAction?.();
               onDismiss();
             }}
-            style={styles.button}
+            style={[styles.button, actionStyle]}
             color={colors.accent}
             compact
             mode="text"
+            {...actionProps}
           >
-            {action.label}
+            {actionLabel}
           </Button>
         ) : null}
       </Surface>

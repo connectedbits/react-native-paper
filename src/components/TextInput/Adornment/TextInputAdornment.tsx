@@ -1,18 +1,18 @@
 import React from 'react';
-import TextInputIcon, { IconAdornment } from './TextInputIcon';
-import TextInputAffix, { AffixAdornment } from './TextInputAffix';
-import { ADORNMENT_OFFSET, OUTLINED_INPUT_OFFSET } from '../constants';
 import type {
-  LayoutChangeEvent,
-  TextStyle,
-  StyleProp,
   Animated,
+  LayoutChangeEvent,
+  StyleProp,
+  TextStyle,
 } from 'react-native';
+import { ADORNMENT_OFFSET, OUTLINED_INPUT_OFFSET } from '../constants';
+import { AdornmentSide, AdornmentType, InputMode } from './enums';
+import TextInputAffix, { AffixAdornment } from './TextInputAffix';
+import TextInputIcon, { IconAdornment } from './TextInputIcon';
 import type {
   AdornmentConfig,
   AdornmentStyleAdjustmentForNativeInput,
 } from './types';
-import { AdornmentSide, AdornmentType, InputMode } from './enums';
 
 export function getAdornmentConfig({
   left,
@@ -85,15 +85,16 @@ export function getAdornmentStyleAdjustmentForNativeInput({
         };
       }
     );
-    const allStyleAdjustmentsMerged = adornmentStyleAdjustmentForNativeInput.reduce(
-      (mergedStyles, currentStyle) => {
-        return {
-          ...mergedStyles,
-          ...currentStyle,
-        };
-      },
-      {}
-    );
+    const allStyleAdjustmentsMerged =
+      adornmentStyleAdjustmentForNativeInput.reduce(
+        (mergedStyles, currentStyle) => {
+          return {
+            ...mergedStyles,
+            ...currentStyle,
+          };
+        },
+        {}
+      );
     return allStyleAdjustmentsMerged;
   } else {
     return [{}];

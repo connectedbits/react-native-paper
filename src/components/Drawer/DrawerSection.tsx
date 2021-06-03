@@ -101,7 +101,7 @@ DrawerSection.titleElement = (
     <View style={styles.titleContainer}>
       <Text
         numberOfLines={numLines}
-        style={{ color: titleColor, ...font, marginLeft: 16 }}
+        style={[{ color: titleColor, ...font }, styles.title]}
       >
         {title}
       </Text>
@@ -117,6 +117,9 @@ const styles = StyleSheet.create({
   titleContainer: {
     minHeight: 40,
     justifyContent: 'center',
+  },
+  title: {
+    marginLeft: 16,
   },
   divider: {
     marginTop: 4,

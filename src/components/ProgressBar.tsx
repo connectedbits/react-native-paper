@@ -1,15 +1,15 @@
+import setColor from 'color';
 import * as React from 'react';
 import {
   Animated,
+  I18nManager,
+  LayoutChangeEvent,
   Platform,
+  StyleProp,
   StyleSheet,
   View,
   ViewStyle,
-  StyleProp,
-  LayoutChangeEvent,
-  I18nManager,
 } from 'react-native';
-import setColor from 'color';
 import { withTheme } from '../core/theming';
 
 type Props = React.ComponentPropsWithRef<typeof View> & {
@@ -75,9 +75,8 @@ const ProgressBar = ({
   const [width, setWidth] = React.useState<number>(0);
   const [prevWidth, setPrevWidth] = React.useState<number>(0);
 
-  const indeterminateAnimation = React.useRef<Animated.CompositeAnimation | null>(
-    null
-  );
+  const indeterminateAnimation =
+    React.useRef<Animated.CompositeAnimation | null>(null);
 
   const { scale } = theme.animation;
 
@@ -156,6 +155,10 @@ const ProgressBar = ({
       {...rest}
       accessible
       accessibilityRole="progressbar"
+      accessibilityState={{ busy: visible }}
+      accessibilityValue={
+        indeterminate ? {} : { min: 0, max: 100, now: progress * 100 }
+      }
     >
       <Animated.View
         style={[

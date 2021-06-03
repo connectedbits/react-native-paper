@@ -1,18 +1,19 @@
-import * as React from 'react';
-import { I18nManager, Platform } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { InitialState, NavigationContainer } from '@react-navigation/native';
 import { Updates } from 'expo';
 import { useKeepAwake } from 'expo-keep-awake';
-import { InitialState, NavigationContainer } from '@react-navigation/native';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { StatusBar } from 'expo-status-bar';
+import * as React from 'react';
+import { I18nManager, Platform } from 'react-native';
 import {
-  Provider as PaperProvider,
   DarkTheme,
   DefaultTheme,
+  Provider as PaperProvider,
 } from 'react-native-paper';
-import App from './RootNavigator';
-import DrawerItems from './DrawerItems';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import DrawerItems from './DrawerItems';
+import App from './RootNavigator';
 
 // Add new typescript properties to the theme
 declare global {
@@ -92,13 +93,11 @@ export default function PaperExample() {
   useKeepAwake();
 
   const [isReady, setIsReady] = React.useState(false);
-  const [initialState, setInitialState] = React.useState<
-    InitialState | undefined
-  >();
+  const [initialState, setInitialState] =
+    React.useState<InitialState | undefined>();
 
-  const [theme, setTheme] = React.useState<ReactNativePaper.Theme>(
-    CustomDefaultTheme
-  );
+  const [theme, setTheme] =
+    React.useState<ReactNativePaper.Theme>(CustomDefaultTheme);
   const [rtl, setRtl] = React.useState<boolean>(I18nManager.isRTL);
 
   React.useEffect(() => {
@@ -202,6 +201,7 @@ export default function PaperExample() {
                   <Drawer.Screen name="Home" component={App} />
                 </Drawer.Navigator>
               )}
+              <StatusBar style="light" />
             </NavigationContainer>
           </React.Fragment>
         </PreferencesContext.Provider>

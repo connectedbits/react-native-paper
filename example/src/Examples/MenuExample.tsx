@@ -13,8 +13,8 @@ import {
   List,
   Menu,
   TouchableRipple,
-  useTheme,
 } from 'react-native-paper';
+import ScreenWrapper from '../ScreenWrapper';
 
 type ContextualMenuCoord = { x: number; y: number };
 
@@ -30,9 +30,8 @@ const MORE_ICON = Platform.OS === 'ios' ? 'dots-horizontal' : 'dots-vertical';
 
 const MenuExample = ({ navigation }: Props) => {
   const [visible, setVisible] = React.useState<MenuVisibility>({});
-  const [contextualMenuCoord, setContextualMenuCoor] = React.useState<
-    ContextualMenuCoord
-  >({ x: 0, y: 0 });
+  const [contextualMenuCoord, setContextualMenuCoor] =
+    React.useState<ContextualMenuCoord>({ x: 0, y: 0 });
 
   const _toggleMenu = (name: string) => () =>
     setVisible({ ...visible, [name]: !visible[name] });
@@ -48,13 +47,11 @@ const MenuExample = ({ navigation }: Props) => {
     setVisible({ menu3: true });
   };
 
-  const {
-    colors: { background },
-  } = useTheme();
-
-  navigation.setOptions({
-    headerShown: false,
-  });
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerShown: false,
+    });
+  }, [navigation]);
 
   return (
     <View style={styles.screen}>
@@ -80,7 +77,7 @@ const MenuExample = ({ navigation }: Props) => {
           <Menu.Item onPress={() => {}} title="Paste" />
         </Menu>
       </Appbar.Header>
-      <View style={[styles.container, { backgroundColor: background }]}>
+      <ScreenWrapper style={styles.container}>
         <View style={styles.alignCenter}>
           <Menu
             visible={_getVisible('menu2')}
@@ -127,7 +124,7 @@ const MenuExample = ({ navigation }: Props) => {
             />
           </TouchableRipple>
         </List.Section>
-      </View>
+      </ScreenWrapper>
     </View>
   );
 };
@@ -139,7 +136,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   container: {
-    flex: 1,
     paddingTop: 48,
   },
   list: {

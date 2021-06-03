@@ -10,8 +10,7 @@ import { APPROX_STATUSBAR_HEIGHT } from '../../constants';
 import { withTheme } from '../../core/theming';
 import overlay from '../../styles/overlay';
 import shadow from '../../styles/shadow';
-import { DEFAULT_APPBAR_HEIGHT } from './Appbar';
-import { Appbar } from './AppbarElements';
+import { Appbar, DEFAULT_APPBAR_HEIGHT } from './Appbar';
 
 type Props = React.ComponentProps<typeof Appbar> & {
   /**
@@ -112,7 +111,6 @@ const AppbarHeader = (props: Props) => {
     >
       <Appbar
         style={[
-          //@ts-ignore Types of property 'backgroundColor' are incompatible.
           { height, backgroundColor, marginTop: statusBarHeight },
           styles.appbar,
           restStyle,

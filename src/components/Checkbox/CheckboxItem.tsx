@@ -9,7 +9,9 @@ import {
 import { withTheme } from '../../core/theming';
 import TouchableRipple from '../TouchableRipple/TouchableRipple';
 import Text from '../Typography/Text';
-import { Checkbox, CheckboxAndroid, CheckboxIOS } from './CheckboxElements';
+import Checkbox from './Checkbox';
+import CheckboxAndroid from './CheckboxAndroid';
+import CheckboxIOS from './CheckboxIOS';
 
 type Props = {
   /**
@@ -53,6 +55,10 @@ type Props = {
    */
   testID?: string;
   /**
+   * Checkbox control position. Default is `trailing`.
+   */
+  position?: 'leading' | 'trailing';
+  /**
    * Whether `<Checkbox.Android />` or `<Checkbox.IOS />` should be used.
    * Left undefined `<Checkbox />` will be used.
    */
@@ -87,9 +93,11 @@ const CheckboxItem = ({
   theme,
   testID,
   mode,
+  position = 'trailing',
   ...props
 }: Props) => {
   const checkboxProps = { ...props, status, theme };
+  const isLeading = position === 'leading';
   let checkbox;
 
   if (mode === 'android') {
@@ -103,12 +111,20 @@ const CheckboxItem = ({
   return (
     <TouchableRipple onPress={onPress} testID={testID}>
       <View style={[styles.container, style]} pointerEvents="none">
+        {isLeading && checkbox}
         <Text
-          style={[styles.label, { color: theme.colors.primary }, labelStyle]}
+          style={[
+            styles.label,
+            {
+              color: theme.colors.text,
+              textAlign: isLeading ? 'right' : 'left',
+            },
+            labelStyle,
+          ]}
         >
           {label}
         </Text>
-        {checkbox}
+        {!isLeading && checkbox}
       </View>
     </TouchableRipple>
   );
@@ -133,5 +149,7 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 16,
+    flexShrink: 1,
+    flexGrow: 1,
   },
 });

@@ -20,9 +20,8 @@ export type ListAccordionGroupContextType = {
   onAccordionPress: (expandedId: string | number) => void;
 } | null;
 
-export const ListAccordionGroupContext = React.createContext<
-  ListAccordionGroupContextType
->(null);
+export const ListAccordionGroupContext =
+  React.createContext<ListAccordionGroupContextType>(null);
 
 /**
  * List.AccordionGroup allows to control a group of List Accordions. `id` prop for List.Accordion is required in order for group to work.
@@ -66,9 +65,8 @@ const ListAccordionGroup = ({
   onAccordionPress,
   children,
 }: Props) => {
-  const [expandedId, setExpandedId] = React.useState<
-    string | number | undefined
-  >(undefined);
+  const [expandedId, setExpandedId] =
+    React.useState<string | number | undefined>(undefined);
 
   const onAccordionPressDefault = (newExpandedId: string | number) => {
     setExpandedId((currentExpandedId) =>

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { ImageBackground, StyleSheet, View } from 'react-native';
-import { List, ToggleButton, useTheme } from 'react-native-paper';
+import { List, ToggleButton } from 'react-native-paper';
+import ScreenWrapper from '../ScreenWrapper';
 
 type StatusState = 'checked' | 'unchecked';
 
@@ -9,12 +10,8 @@ const ToggleButtonExample = () => {
   const [fruit, setFruit] = React.useState<string>('watermelon');
   const [status, setStatus] = React.useState<StatusState>('checked');
 
-  const {
-    colors: { background },
-  } = useTheme();
-
   return (
-    <View style={[styles.container, { backgroundColor: background }]}>
+    <ScreenWrapper>
       <List.Section title="Single">
         <View style={styles.padding}>
           <ToggleButton
@@ -52,8 +49,7 @@ const ToggleButtonExample = () => {
                 margin: 2,
               }}
               source={{
-                uri:
-                  'https://images.pexels.com/photos/1068534/pexels-photo-1068534.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260',
+                uri: 'https://images.pexels.com/photos/1068534/pexels-photo-1068534.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260',
               }}
             >
               <ToggleButton
@@ -74,8 +70,7 @@ const ToggleButtonExample = () => {
                 margin: 2,
               }}
               source={{
-                uri:
-                  'https://images.pexels.com/photos/46174/strawberries-berries-fruit-freshness-46174.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260',
+                uri: 'https://images.pexels.com/photos/46174/strawberries-berries-fruit-freshness-46174.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260',
               }}
             >
               <ToggleButton
@@ -92,16 +87,13 @@ const ToggleButtonExample = () => {
           </ToggleButton.Group>
         </View>
       </List.Section>
-    </View>
+    </ScreenWrapper>
   );
 };
 
 ToggleButtonExample.title = 'Toggle Button';
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   padding: {
     paddingHorizontal: 16,
   },

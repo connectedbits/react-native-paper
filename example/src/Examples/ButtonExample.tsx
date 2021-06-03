@@ -1,14 +1,13 @@
 import * as React from 'react';
-import { View, ScrollView, StyleSheet, Image } from 'react-native';
+import { Image, StyleSheet, View } from 'react-native';
 import { Button, List, useTheme } from 'react-native-paper';
+import ScreenWrapper from '../ScreenWrapper';
 
 const ButtonExample = () => {
   const { colors } = useTheme();
 
   return (
-    <ScrollView
-      style={[styles.container, { backgroundColor: colors.background }]}
-    >
+    <ScreenWrapper>
       <List.Section title="Text button">
         <View style={styles.row}>
           <Button onPress={() => {}} style={styles.button}>
@@ -135,8 +134,7 @@ const ButtonExample = () => {
           <Button
             mode="outlined"
             icon={{
-              uri:
-                'https://avatars0.githubusercontent.com/u/17571969?v=3&s=400',
+              uri: 'https://avatars0.githubusercontent.com/u/17571969?v=3&s=400',
             }}
             onPress={() => {}}
             style={styles.button}
@@ -166,16 +164,13 @@ const ButtonExample = () => {
           </Button>
         </View>
       </List.Section>
-    </ScrollView>
+    </ScreenWrapper>
   );
 };
 
 ButtonExample.title = 'Button';
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   row: {
     flexDirection: 'row',
     flexWrap: 'wrap',

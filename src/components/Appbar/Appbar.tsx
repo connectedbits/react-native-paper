@@ -2,12 +2,9 @@ import * as React from 'react';
 import { View, ViewStyle, Platform, StyleSheet, StyleProp } from 'react-native';
 import color from 'color';
 
-import {
-  AppbarContent,
-  AppbarAction,
-  AppbarBackAction,
-  AppbarHeader,
-} from './AppbarElements';
+import AppbarContent from './AppbarContent';
+import AppbarAction from './AppbarAction';
+import AppbarBackAction from './AppbarBackAction';
 import Surface from '../Surface';
 import { withTheme } from '../../core/theming';
 import { black, white } from '../../styles/colors';
@@ -97,7 +94,9 @@ const Appbar = ({ children, dark, style, theme, ...rest }: Props) => {
     isDark =
       backgroundColor === 'transparent'
         ? false
-        : !color(backgroundColor).isLight();
+        : typeof backgroundColor === 'string'
+        ? !color(backgroundColor).isLight()
+        : true;
   }
 
   let shouldCenterContent = false;
@@ -127,7 +126,6 @@ const Appbar = ({ children, dark, style, theme, ...rest }: Props) => {
   }
   return (
     <Surface
-      //@ts-ignore Types of property 'backgroundColor' are incompatible.
       style={[{ backgroundColor }, styles.appbar, { elevation }, restStyle]}
       {...rest}
     >
@@ -137,12 +135,10 @@ const Appbar = ({ children, dark, style, theme, ...rest }: Props) => {
         .map((child, i) => {
           if (
             !React.isValidElement(child) ||
-            ![
-              AppbarContent,
-              AppbarAction,
-              AppbarBackAction,
-              // @ts-ignore Type 'string' is not assignable to type
-            ].includes(child.type)
+            ![AppbarContent, AppbarAction, AppbarBackAction].includes(
+              // @ts-expect-error: TypeScript complains about the type of type but it doesn't matter
+              child.type
+            )
           ) {
             return child;
           }
@@ -170,15 +166,6 @@ const Appbar = ({ children, dark, style, theme, ...rest }: Props) => {
     </Surface>
   );
 };
-
-// @component ./AppbarContent.tsx
-Appbar.Content = AppbarContent;
-// @component ./AppbarAction.tsx
-Appbar.Action = AppbarAction;
-// @component ./AppbarBackAction.tsx
-Appbar.BackAction = AppbarBackAction;
-// @component ./AppbarHeader.tsx
-Appbar.Header = AppbarHeader;
 
 const styles = StyleSheet.create({
   appbar: {

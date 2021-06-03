@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { Platform } from 'react-native';
 import { withTheme } from '../../core/theming';
-import { CheckboxAndroid, CheckboxIOS, CheckboxItem } from './CheckboxElements';
+import CheckboxAndroid from './CheckboxAndroid';
+import CheckboxIOS from './CheckboxIOS';
 
 type Props = {
   /**
@@ -83,15 +84,6 @@ const Checkbox = (props: Props) =>
   ) : (
     <CheckboxAndroid {...props} />
   );
-
-// @component ./CheckboxItem.tsx
-Checkbox.Item = CheckboxItem;
-
-// @component ./CheckboxAndroid.tsx
-Checkbox.Android = CheckboxAndroid;
-
-// @component ./CheckboxIOS.tsx
-Checkbox.IOS = CheckboxIOS;
 
 export default withTheme(Checkbox);
 

@@ -1,14 +1,8 @@
 import * as React from 'react';
 import { View, Platform, StyleSheet } from 'react-native';
 import type { StackNavigationProp } from '@react-navigation/stack';
-import {
-  Colors,
-  Appbar,
-  FAB,
-  Switch,
-  Paragraph,
-  useTheme,
-} from 'react-native-paper';
+import { Appbar, FAB, Switch, Paragraph } from 'react-native-paper';
+import ScreenWrapper from '../ScreenWrapper';
 
 type Props = {
   navigation: StackNavigationProp<{}>;
@@ -17,8 +11,6 @@ type Props = {
 const MORE_ICON = Platform.OS === 'ios' ? 'dots-horizontal' : 'dots-vertical';
 
 const AppbarExample = ({ navigation }: Props) => {
-  const { colors } = useTheme();
-
   const [showLeftIcon, setShowLeftIcon] = React.useState(true);
   const [showSubtitle, setShowSubtitle] = React.useState(true);
   const [showSearchIcon, setShowSearchIcon] = React.useState(true);
@@ -26,55 +18,74 @@ const AppbarExample = ({ navigation }: Props) => {
   const [showCustomColor, setShowCustomColor] = React.useState(false);
   const [showExactTheme, setShowExactTheme] = React.useState(false);
 
-  navigation.setOptions({
-    header: () => (
-      <Appbar.Header
-        style={showCustomColor ? { backgroundColor: '#ffff00' } : null}
-        theme={{
-          mode: showExactTheme ? 'exact' : 'adaptive',
-        }}
-      >
-        {showLeftIcon && (
-          <Appbar.BackAction onPress={() => navigation.goBack()} />
-        )}
-        <Appbar.Content
-          title="Title"
-          subtitle={showSubtitle ? 'Subtitle' : null}
-        />
-        {showSearchIcon && <Appbar.Action icon="magnify" onPress={() => {}} />}
-        {showMoreIcon && <Appbar.Action icon={MORE_ICON} onPress={() => {}} />}
-      </Appbar.Header>
-    ),
-  });
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      header: () => (
+        <Appbar.Header
+          style={showCustomColor ? { backgroundColor: '#ffff00' } : null}
+          theme={{
+            mode: showExactTheme ? 'exact' : 'adaptive',
+          }}
+        >
+          {showLeftIcon && (
+            <Appbar.BackAction onPress={() => navigation.goBack()} />
+          )}
+          <Appbar.Content
+            title="Title"
+            subtitle={showSubtitle ? 'Subtitle' : null}
+          />
+          {showSearchIcon && (
+            <Appbar.Action icon="magnify" onPress={() => {}} />
+          )}
+          {showMoreIcon && (
+            <Appbar.Action icon={MORE_ICON} onPress={() => {}} />
+          )}
+        </Appbar.Header>
+      ),
+    });
+  }, [
+    navigation,
+    showLeftIcon,
+    showSubtitle,
+    showSearchIcon,
+    showMoreIcon,
+    showCustomColor,
+    showExactTheme,
+  ]);
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.background }]}>
-      <View style={styles.row}>
-        <Paragraph>Left icon</Paragraph>
-        <Switch value={showLeftIcon} onValueChange={setShowLeftIcon} />
-      </View>
-      <View style={styles.row}>
-        <Paragraph>Subtitle</Paragraph>
-        <Switch value={showSubtitle} onValueChange={setShowSubtitle} />
-      </View>
-      <View style={styles.row}>
-        <Paragraph>Search icon</Paragraph>
-        <Switch value={showSearchIcon} onValueChange={setShowSearchIcon} />
-      </View>
-      <View style={styles.row}>
-        <Paragraph>More icon</Paragraph>
-        <Switch value={showMoreIcon} onValueChange={setShowMoreIcon} />
-      </View>
-      <View style={styles.row}>
-        <Paragraph>Custom Color</Paragraph>
-        <Switch value={showCustomColor} onValueChange={setShowCustomColor} />
-      </View>
-      <View style={styles.row}>
-        <Paragraph>Exact Dark Theme</Paragraph>
-        <Switch value={showExactTheme} onValueChange={setShowExactTheme} />
-      </View>
+    <>
+      <ScreenWrapper
+        style={styles.container}
+        contentContainerStyle={styles.contentContainer}
+      >
+        <View style={styles.row}>
+          <Paragraph>Left icon</Paragraph>
+          <Switch value={showLeftIcon} onValueChange={setShowLeftIcon} />
+        </View>
+        <View style={styles.row}>
+          <Paragraph>Subtitle</Paragraph>
+          <Switch value={showSubtitle} onValueChange={setShowSubtitle} />
+        </View>
+        <View style={styles.row}>
+          <Paragraph>Search icon</Paragraph>
+          <Switch value={showSearchIcon} onValueChange={setShowSearchIcon} />
+        </View>
+        <View style={styles.row}>
+          <Paragraph>More icon</Paragraph>
+          <Switch value={showMoreIcon} onValueChange={setShowMoreIcon} />
+        </View>
+        <View style={styles.row}>
+          <Paragraph>Custom Color</Paragraph>
+          <Switch value={showCustomColor} onValueChange={setShowCustomColor} />
+        </View>
+        <View style={styles.row}>
+          <Paragraph>Exact Dark Theme</Paragraph>
+          <Switch value={showExactTheme} onValueChange={setShowExactTheme} />
+        </View>
+      </ScreenWrapper>
       <Appbar
-        style={[styles.bottom]}
+        style={styles.bottom}
         theme={{ mode: showExactTheme ? 'exact' : 'adaptive' }}
       >
         <Appbar.Action icon="archive" onPress={() => {}} />
@@ -83,7 +94,7 @@ const AppbarExample = ({ navigation }: Props) => {
         <Appbar.Action icon="delete" onPress={() => {}} />
       </Appbar>
       <FAB icon="reply" onPress={() => {}} style={styles.fab} />
-    </View>
+    </>
   );
 };
 
@@ -93,8 +104,9 @@ export default AppbarExample;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: Colors.white,
+    marginBottom: 56,
+  },
+  contentContainer: {
     paddingVertical: 8,
   },
   row: {

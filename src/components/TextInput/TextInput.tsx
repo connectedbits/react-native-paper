@@ -1,19 +1,19 @@
 import * as React from 'react';
 import {
   Animated,
-  TextInput as NativeTextInput,
-  Platform,
   LayoutChangeEvent,
+  Platform,
   StyleProp,
+  TextInput as NativeTextInput,
   TextStyle,
 } from 'react-native';
-import TextInputOutlined from './TextInputOutlined';
-import TextInputFlat from './TextInputFlat';
-import TextInputIcon from './Adornment/TextInputIcon';
-import TextInputAffix from './Adornment/TextInputAffix';
 import { withTheme } from '../../core/theming';
-import type { RenderProps, State } from './types';
 import type { $Omit } from '../../types';
+import TextInputAffix from './Adornment/TextInputAffix';
+import TextInputIcon from './Adornment/TextInputIcon';
+import TextInputFlat from './TextInputFlat';
+import TextInputOutlined from './TextInputOutlined';
+import type { RenderProps, State } from './types';
 
 const BLUR_ANIMATION_DURATION = 180;
 const FOCUS_ANIMATION_DURATION = 150;
@@ -60,6 +60,10 @@ export type TextInputProps = React.ComponentPropsWithRef<
    * Underline color of the input.
    */
   underlineColor?: string;
+  /**
+   * Outline color of the input.
+   */
+  outlineColor?: string;
   /**
    * Sets min height with densed layout. For `TextInput` in `flat` mode
    * height is `64dp` or in dense layout - `52dp` with label or `40dp` without label.
@@ -163,7 +167,7 @@ export type TextInputProps = React.ComponentPropsWithRef<
  * export default MyComponent;
  * ```
  *
- * @extends TextInput props https://facebook.github.io/react-native/docs/textinput.html#props
+ * @extends TextInput props https://reactnative.dev/docs/textinput#props
  */
 
 class TextInput extends React.Component<TextInputProps, State> {
@@ -275,14 +279,13 @@ class TextInput extends React.Component<TextInputProps, State> {
 
     // Set the placeholder in a delay to offset the label animation
     // If we show it immediately, they'll overlap and look ugly
-    // @ts-ignore
     this.timer = setTimeout(
       () =>
         this.setState({
           placeholder: this.props.placeholder,
         }),
       50
-    );
+    ) as unknown as NodeJS.Timeout;
   };
 
   private hidePlaceholder = () =>
@@ -290,7 +293,7 @@ class TextInput extends React.Component<TextInputProps, State> {
       placeholder: '',
     });
 
-  private timer?: number;
+  private timer?: NodeJS.Timeout;
   private root: NativeTextInput | undefined | null;
 
   private showError = () => {

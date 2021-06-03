@@ -1,7 +1,7 @@
+import color from 'color';
 import * as React from 'react';
 import {
   AccessibilityState,
-  AccessibilityTrait,
   Animated,
   Platform,
   StyleProp,
@@ -10,16 +10,15 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import color from 'color';
-import type { IconSource } from './Icon';
-import Icon from './Icon';
-import MaterialCommunityIcon from './MaterialCommunityIcon';
-import Surface from './Surface';
-import Text from './Typography/Text';
-import TouchableRipple from './TouchableRipple/TouchableRipple';
 import { withTheme } from '../core/theming';
 import { black, white } from '../styles/colors';
 import type { EllipsizeProp } from '../types';
+import Icon from './Icon';
+import type { IconSource } from './Icon';
+import MaterialCommunityIcon from './MaterialCommunityIcon';
+import Surface from './Surface';
+import TouchableRipple from './TouchableRipple/TouchableRipple';
+import Text from './Typography/Text';
 
 type Props = React.ComponentProps<typeof Surface> & {
   /**
@@ -161,15 +160,11 @@ const Chip = ({
   };
 
   const { dark, colors } = theme;
+  const defaultBackgroundColor =
+    mode === 'outlined' ? colors.surface : dark ? '#383838' : '#ebebeb';
 
-  const {
-    backgroundColor = mode === 'outlined'
-      ? colors.surface
-      : dark
-      ? '#383838'
-      : '#ebebeb',
-    borderRadius = 16,
-  } = StyleSheet.flatten(style) || {};
+  const { backgroundColor = defaultBackgroundColor, borderRadius = 16 } =
+    (StyleSheet.flatten(style) || {}) as ViewStyle;
 
   const borderColor =
     mode === 'outlined'
@@ -194,9 +189,15 @@ const Chip = ({
         .alpha(0.54)
         .rgb()
         .string();
-  const selectedBackgroundColor = (dark
-    ? color(backgroundColor).lighten(mode === 'outlined' ? 0.2 : 0.4)
-    : color(backgroundColor).darken(mode === 'outlined' ? 0.08 : 0.2)
+
+  const backgroundColorString =
+    typeof backgroundColor === 'string'
+      ? backgroundColor
+      : defaultBackgroundColor;
+  const selectedBackgroundColor = (
+    dark
+      ? color(backgroundColorString).lighten(mode === 'outlined' ? 0.2 : 0.4)
+      : color(backgroundColorString).darken(mode === 'outlined' ? 0.08 : 0.2)
   )
     .rgb()
     .string();
@@ -205,7 +206,7 @@ const Chip = ({
     ? color(selectedColor).fade(0.5).rgb().string()
     : selectedBackgroundColor;
 
-  const accessibilityTraits: AccessibilityTrait[] = ['button'];
+  const accessibilityTraits = ['button'];
   const accessibilityState: AccessibilityState = {
     selected,
     disabled,
@@ -248,6 +249,7 @@ const Chip = ({
         underlayColor={underlayColor}
         disabled={disabled}
         accessibilityLabel={accessibilityLabel}
+        // @ts-expect-error We keep old a11y props for backwards compat with old RN versions
         accessibilityTraits={accessibilityTraits}
         accessibilityComponentType="button"
         accessibilityRole="button"
@@ -310,6 +312,7 @@ const Chip = ({
         <View style={styles.closeButtonStyle}>
           <TouchableWithoutFeedback
             onPress={onClose}
+            // @ts-expect-error We keep old a11y props for backwards compat with old RN versions
             accessibilityTraits="button"
             accessibilityComponentType="button"
             accessibilityRole="button"

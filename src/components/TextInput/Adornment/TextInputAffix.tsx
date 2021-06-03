@@ -1,22 +1,28 @@
-import React from 'react';
 import color from 'color';
+import React from 'react';
 import {
-  Text,
-  StyleSheet,
-  StyleProp,
-  TextStyle,
-  LayoutChangeEvent,
   Animated,
+  LayoutChangeEvent,
+  StyleProp,
+  StyleSheet,
+  Text,
+  TextStyle,
+  ViewStyle,
 } from 'react-native';
-
 import { withTheme } from '../../../core/theming';
 import { AdornmentSide } from './enums';
 
 const AFFIX_OFFSET = 12;
 
 type Props = {
+  /**
+   * Text to show.
+   */
   text: string;
   onLayout?: (event: LayoutChangeEvent) => void;
+  /**
+   * Style that is passed to the Text element.
+   */
   textStyle?: StyleProp<TextStyle>;
   /**
    * @optional
@@ -69,15 +75,40 @@ const AffixAdornment: React.FunctionComponent<
   );
 };
 
+/**
+ * A component to render a leading / trailing text in the TextInput
+ *
+ * <div class="screenshots">
+ *   <figure>
+ *     <img class="medium" src="screenshots/textinput-outline.affix.png" />
+ *   </figure>
+ * </div>
+ *
+ * ## Usage
+ * ```js
+ * import * as React from 'react';
+ * import { TextInput } from 'react-native-paper';
+ *
+ * const MyComponent = () => {
+ *   const [text, setText] = React.useState('');
+ *
+ *   return (
+ *     <TextInput
+ *       mode="outlined"
+ *       label="Outlined input"
+ *       placeholder="Type something"
+ *       right={<TextInput.Affix text="/100" />}
+ *     />
+ *   );
+ * };
+ *
+ * export default MyComponent;
+ * ```
+ */
+
 const TextInputAffix = ({ text, textStyle: labelStyle, theme }: Props) => {
-  const {
-    textStyle,
-    onLayout,
-    topPosition,
-    side,
-    visible,
-    paddingHorizontal,
-  } = React.useContext(AffixContext);
+  const { textStyle, onLayout, topPosition, side, visible, paddingHorizontal } =
+    React.useContext(AffixContext);
   const textColor = color(theme.colors.text)
     .alpha(theme.dark ? 0.7 : 0.54)
     .rgb()
@@ -89,7 +120,7 @@ const TextInputAffix = ({ text, textStyle: labelStyle, theme }: Props) => {
   const style = {
     top: topPosition,
     [side]: offset,
-  };
+  } as ViewStyle;
 
   return (
     <Animated.View

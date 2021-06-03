@@ -1,7 +1,7 @@
-import * as React from 'react';
-import { Appbar } from 'react-native-paper';
 import type { DrawerNavigationProp } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
+import * as React from 'react';
+import { Appbar } from 'react-native-paper';
 import ExampleList, { examples } from './ExampleList';
 
 const Stack = createStackNavigator();
@@ -19,7 +19,7 @@ export default function Root() {
               <Appbar.Action
                 icon="menu"
                 onPress={() =>
-                  ((navigation as any) as DrawerNavigationProp<{}>).openDrawer()
+                  (navigation as any as DrawerNavigationProp<{}>).openDrawer()
                 }
               />
             ) : null}

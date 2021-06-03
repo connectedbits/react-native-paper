@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Platform } from 'react-native';
 import renderer from 'react-test-renderer';
-import Checkbox from '../../Checkbox/Checkbox';
+import Checkbox from '../../Checkbox';
 
 it('renders unchecked', () => {
   const tree = renderer
@@ -30,5 +30,20 @@ it('can render the Android checkbox on different platforms', () => {
     )
     .toJSON();
 
+  expect(tree).toMatchSnapshot();
+});
+
+it('can render leading checkbox control', () => {
+  Platform.OS = 'ios';
+  const tree = renderer
+    .create(
+      <Checkbox.Item
+        label="Default with leading control"
+        status={'unchecked'}
+        mode="ios"
+        position="leading"
+      />
+    )
+    .toJSON();
   expect(tree).toMatchSnapshot();
 });

@@ -23,6 +23,7 @@ exports[`renders avatar with icon 1`] = `
     allowFontScaling={false}
     importantForAccessibility="no-hide-descendants"
     pointerEvents="none"
+    selectable={false}
     style={
       Array [
         Object {
@@ -79,6 +80,7 @@ exports[`renders avatar with icon and custom background color 1`] = `
     allowFontScaling={false}
     importantForAccessibility="no-hide-descendants"
     pointerEvents="none"
+    selectable={false}
     style={
       Array [
         Object {
@@ -169,6 +171,8 @@ exports[`renders avatar with text 1`] = `
           "color": "#000000",
           "fontFamily": "System",
           "fontWeight": "400",
+        },
+        Object {
           "textAlign": "left",
         },
         Array [
@@ -217,6 +221,8 @@ exports[`renders avatar with text and custom background color 1`] = `
           "color": "#000000",
           "fontFamily": "System",
           "fontWeight": "400",
+        },
+        Object {
           "textAlign": "left",
         },
         Array [
@@ -265,6 +271,8 @@ exports[`renders avatar with text and custom colors 1`] = `
           "color": "#000000",
           "fontFamily": "System",
           "fontWeight": "400",
+        },
+        Object {
           "textAlign": "left",
         },
         Array [
@@ -313,6 +321,8 @@ exports[`renders avatar with text and custom size 1`] = `
           "color": "#000000",
           "fontFamily": "System",
           "fontWeight": "400",
+        },
+        Object {
           "textAlign": "left",
         },
         Array [

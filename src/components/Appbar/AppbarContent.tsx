@@ -116,7 +116,7 @@ const AppbarContent = ({
           allowFontScaling={allowTitleFontScaling}
           accessible
           accessibilityTraits="header"
-          // @ts-ignore
+          // @ts-expect-error React Native doesn't accept 'heading' as it's web-only
           accessibilityRole={Platform.OS === 'web' ? 'heading' : 'header'}
         >
           {title}
@@ -142,7 +142,10 @@ const AppbarContent = ({
     }
   }
   return (
-    <TouchableWithoutFeedback onPress={onPress} disabled={!onPress}>
+    <TouchableWithoutFeedback
+      onPress={(_event) => onPress?.()}
+      disabled={!onPress}
+    >
       <View style={[styles.container, style]} {...rest}>
         {titleElement}
         {subtitleElement}

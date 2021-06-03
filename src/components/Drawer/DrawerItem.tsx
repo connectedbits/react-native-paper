@@ -31,6 +31,10 @@ type Props = React.ComponentPropsWithRef<typeof View> & {
    * Accessibility label for the button. This is read by the screen reader when the user taps the button.
    */
   accessibilityLabel?: string;
+  /**
+   * Callback which returns a React element to display on the right side. For instance a Badge.
+   */
+  right?: (props: { color: string }) => React.ReactNode;
   style?: StyleProp<ViewStyle>;
   /**
    * @optional
@@ -72,6 +76,7 @@ const DrawerItem = ({
   onPress,
   numberOfLines,
   accessibilityLabel,
+  right,
   ...rest
 }: Props) => {
   const { colors, roundness } = theme;
@@ -117,6 +122,7 @@ const DrawerItem = ({
         delayPressIn={0}
         onPress={onPress}
         style={{ borderRadius: roundness }}
+        // @ts-expect-error We keep old a11y props for backwards compat with old RN versions
         accessibilityTraits={active ? ['button', 'selected'] : 'button'}
         accessibilityComponentType="button"
         accessibilityRole="button"
@@ -124,8 +130,13 @@ const DrawerItem = ({
         accessibilityLabel={accessibilityLabel}
       >
         <View style={styles.wrapper}>
-          {icon ? <Icon source={icon} size={24} color={contentColor} /> : null}
-          {labelElement}
+          <View style={styles.content}>
+            {icon ? (
+              <Icon source={icon} size={24} color={contentColor} />
+            ) : null}
+            {labelElement}
+          </View>
+          {right?.({ color: contentColor })}
         </View>
       </TouchableRipple>
     </View>
@@ -143,6 +154,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     padding: 8,
+  },
+  content: {
+    flex: 1,
+    flexDirection: 'row',
   },
   label: {
     marginRight: 32,
